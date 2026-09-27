@@ -90,6 +90,33 @@ main,footer{position:relative;z-index:2;max-width:1400px;margin-inline:auto}
 .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;list-style:none;padding:0}
 .skills li{border:1px solid var(--line2);border-radius:99px;padding:6px 14px;font-size:.88rem;color:var(--mist)}
 
+/* gallery: liquid glass carousel */
+.lg{position:relative;margin-inline:calc(-1*var(--gut))}
+.lg-track{display:flex;gap:clamp(12px,2vw,24px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;padding:8px calc((100vw - min(84vw,1080px))/2) 12px;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab;-webkit-overflow-scrolling:touch}
+.lg-track::-webkit-scrollbar{display:none}
+.lg-track.drag{cursor:grabbing;scroll-snap-type:none}
+.lg-track.drag img{pointer-events:none}
+.lg-slide{flex:0 0 min(84vw,1080px);aspect-ratio:16/10;scroll-snap-align:center;position:relative;border-radius:clamp(20px,2.4vw,32px);overflow:hidden;margin:0;background:#0b0a08;transform:scale(.9);opacity:.4;transition:transform .7s var(--ease),opacity .7s var(--ease);user-select:none}
+.lg-slide.on{transform:none;opacity:1}
+.lg-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.06);transition:transform 1.2s var(--ease)}
+.lg-slide.on img{transform:scale(1)}
+.lg-slide::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -30px 60px -40px rgba(255,255,255,.14)}
+.glass{position:relative;isolation:isolate;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.04) 45%,rgba(255,255,255,.1));-webkit-backdrop-filter:blur(14px) saturate(180%) brightness(1.08);backdrop-filter:blur(14px) saturate(180%) brightness(1.08);border-radius:999px;border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.14),inset 1px 0 0 rgba(255,255,255,.2),inset -1px 0 0 rgba(255,255,255,.1),0 10px 34px rgba(0,0,0,.45);color:#fff}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(120% 90% at 18% -30%,rgba(255,255,255,.4),transparent 55%),radial-gradient(80% 70% at 100% 130%,rgba(232,193,90,.18),transparent 60%)}
+html.lg-refract .glass{backdrop-filter:url(#lgRefract) blur(10px) saturate(180%) brightness(1.08)}
+.lg-cap{position:absolute;left:clamp(12px,1.6vw,20px);top:clamp(12px,1.6vw,20px);padding:7px 14px;font:500 .72rem var(--f-m);letter-spacing:.1em;text-transform:uppercase;max-width:calc(100% - 40px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(-6px);transition:opacity .6s var(--ease) .15s,transform .6s var(--ease) .15s}
+.lg-slide.on .lg-cap{opacity:1;transform:none}
+.lg-ctrl{position:absolute;left:50%;bottom:clamp(26px,3.2vw,40px);transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;z-index:3}
+.lg-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:#fff;font:400 1.3rem/1 var(--f-b);cursor:pointer;display:grid;place-items:center;transition:background .3s}
+.lg-btn:hover{background:rgba(255,255,255,.14)}
+.lg-dots{display:flex;align-items:center;gap:6px;padding-inline:6px}
+.lg-dots button{width:7px;height:7px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.45);cursor:pointer;transition:width .5s var(--ease),background .5s}
+.lg-dots button[aria-current="true"]{width:22px;background:var(--au1)}
+.lg-count{font:500 .7rem var(--f-m);letter-spacing:.08em;padding-inline:8px 10px;color:rgba(255,255,255,.8);font-variant-numeric:tabular-nums}
+.ed-thumb{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:12px;align-items:center}
+.ed-thumb img{width:96px;aspect-ratio:16/10;object-fit:cover;border-radius:8px;display:block}
+@media (max-width:760px){.lg-track{padding-inline:6vw}.lg-slide{flex-basis:88vw;aspect-ratio:4/3}.lg-btn{width:36px;height:36px}.lg-count{display:none}}
+
 /* experience */
 .xp{list-style:none;margin:0;padding:0 0 0 52px;position:relative;--fill:0%;--pad:clamp(28px,4vw,44px);--rail:52px;border-bottom:2px solid var(--line2);transition:border-color .6s}
 .xp.done{border-bottom-color:#fff}
@@ -261,7 +288,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 <div class="cursor" id="cursor" hidden=""></div>
 <nav class="nav" aria-label="Main">
  <a href="#top" class="mark" data-go="top" id="mark">K<span>.</span></a>
- <ul class="links"><li><a href="#about" data-go="about">About</a></li><li><a href="#experience" data-go="experience">Experience</a></li><li><a href="#portfolio" data-go="portfolio">Portfolio</a></li><li><a href="#flights" data-go="flights">Flights</a></li><li><a href="#contact" data-go="contact">Contact</a></li></ul>
+ <ul class="links"><li><a href="#about" data-go="about">About</a></li><li><a href="#gallery" data-go="gallery">Gallery</a></li><li><a href="#experience" data-go="experience">Experience</a></li><li><a href="#portfolio" data-go="portfolio">Portfolio</a></li><li><a href="#flights" data-go="flights">Flights</a></li><li><a href="#contact" data-go="contact">Contact</a></li></ul>
  <button class="edit-btn" id="editBtn" type="button" hidden="">Edit</button>
  <div class="progress" id="progress"></div>
 </nav>
@@ -282,6 +309,13 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
   <div class="sec-head"><p class="eyebrow">About</p></div>
   <p class="statement" id="statement"></p>
   <ul class="skills" id="skills" aria-label="Skills"></ul>
+ </section>
+ <section class="sec" id="gallery" hidden="">
+  <div class="sec-head"><p class="eyebrow">Gallery <b id="lgMeta"></b></p><h2 class="sec-title">Through the glass</h2></div>
+  <div class="lg" id="lg"><div class="lg-track" id="lgTrack" data-lenis-prevent="" tabindex="0" aria-roledescription="carousel" aria-label="Photo gallery"></div>
+   <div class="lg-ctrl glass" id="lgCtrl"><button class="lg-btn" type="button" id="lgPrev" aria-label="Previous photo">‹</button><div class="lg-dots" id="lgDots"></div><span class="lg-count" id="lgCount"></span><button class="lg-btn" type="button" id="lgNext" aria-label="Next photo">›</button></div>
+  </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lgRefract" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".012 .018" numOctaves="2" seed="7" result="n"></feTurbulence><feGaussianBlur in="n" stdDeviation="2" result="nb"></feGaussianBlur><feDisplacementMap in="SourceGraphic" in2="nb" scale="28" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter></svg>
  </section>
  <section class="sec" id="experience">
   <div class="sec-head"><p class="eyebrow">Experience <b id="xpMeta"></b></p><h2 class="sec-title">Where I've worked</h2></div>
@@ -316,12 +350,12 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-label="Edit portfolio" data-lenis-prevent="" aria-hidden="true">
  <div class="ed-head"><h2>Edit page</h2><button class="x" type="button" id="edClose" aria-label="Close editor">✕</button></div>
- <div class="tabs" role="tablist" id="tabs"><button type="button" role="tab" data-tab="profile">Profile</button><button type="button" role="tab" data-tab="xp">Experience</button><button type="button" role="tab" data-tab="hold">Holdings</button><button type="button" role="tab" data-tab="flights">Flights</button></div>
+ <div class="tabs" role="tablist" id="tabs"><button type="button" role="tab" data-tab="profile">Profile</button><button type="button" role="tab" data-tab="xp">Experience</button><button type="button" role="tab" data-tab="hold">Holdings</button><button type="button" role="tab" data-tab="flights">Flights</button><button type="button" role="tab" data-tab="gallery">Gallery</button></div>
  <div class="ed-body" id="edBody"></div>
  <div class="ed-foot"><span class="ed-msg" id="edMsg">Changes go live for everyone who opens this page.</span><button class="ghost" type="button" id="edCancel">Cancel</button><button class="primary" type="button" id="edSave">Save &amp; publish</button></div>
 </aside>
 </div>
-<script type="application/json" id="state">{"v":1,"sample":false,"profile":{"name":"Kristian","role":"Monitoimimies","status":"Heit koodii","intro":"Meikäl o piru upee octavia. osaan mä duuniiki tehdä.","about":"Just a pawn, playing along, try'na do what's right 🗣️","email":"kristian@black.com","skills":["Creative person","Just a bit autistic","Driving","Fucking around","Finding out"],"links":[],"cta":"Please don't contact me.","ctaSecret":"But if you do, email me.","carLabel":"Horsepower","carValue":"318","carUnit":"hp","car3Value":"296"},"experience":[{"from":"2024","to":"Now","role":"Field Service Technician","company":"City of Helsinki","place":"Helsinki, Finland","summary":"Laiteasentaja Helsingin kaupungilla","fromM":"9"},{"from":"2023","to":"2023","role":"Motor Vehicle Operator","company":"FInnish Defence Forces","place":"On-Site","summary":"Served in the military for a year","fromM":"1","toM":"12"},{"from":"2022","to":"2022","role":"IT Technician","company":"HUS | Infocare","place":"On-site","summary":"I worked at Infocare (now Onitio) under the HUS account in Proactive Device Replacement. My tasks included replacing old computers and peripherals with new ones, using Active Directory, cross-connects, inventory management, and reaching out to customers.","fromM":"2","toM":"12"},{"from":"2021","to":"2021","role":"Electrician","company":"E-Avenue","place":"On-Site","summary":"","fromM":"9","toM":"12"},{"from":"2019","to":"2019","role":"Intern","company":"Prisma Jumbo","place":"On-Site","summary":"Summer Job, stocked shelves, helped customers. Yadi yadi yada","fromM":"7","toM":"8"},{"from":"2018","to":"2018","role":"Intern","company":"Finnair Sky Shop","place":"On-Site","summary":"Stocked shelves for a week","fromM":"2","toM":"2"}],"holdings":[{"sym":"XPL","amount":100000,"cost":null},{"sym":"ETH","amount":0.2,"cost":null},{"sym":"CRO","amount":146535,"cost":null},{"sym":"SUI","amount":85,"cost":null},{"sym":"BTC","amount":0.00036655,"cost":null},{"sym":"RENDER","amount":10.7832,"cost":null},{"sym":"AVAX","amount":1.83,"cost":null},{"sym":"USDT","amount":20846.49,"cost":null}],"flights":[{"d":"2011-07","a":"FIN","n":"61","f":"HEL","t":"HKG","ac":"Airbus A330-300"},{"d":"2011-07","a":"FIN","n":"8862","f":"HKG","t":"HEL","ac":""},{"d":"2011-12","a":"FIN","n":"961","f":"HEL","t":"DXB","ac":"Boeing 757-200"},{"d":"2011-12","a":"UAE","n":"412","f":"DXB","t":"SYD","ac":"Airbus A380-800"},{"d":"2012-01","a":"FIN","n":"8854","f":"ICN","t":"HEL","ac":""},{"d":"2012-01","a":"KAL","n":"122","f":"SYD","t":"ICN","ac":"Boeing 747-400"},{"d":"2018-03","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2018-03","a":"FIN","n":"146","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2018-12","a":"FIN","n":"1337","f":"HEL","t":"LHR","ac":"Airbus A321"},{"d":"2018-12","a":"FIN","n":"1336","f":"LHR","t":"HEL","ac":"Airbus A321"},{"d":"2019-02","a":"FIN","n":"7","f":"HEL","t":"MIA","ac":"Airbus A330-300"},{"d":"2019-02","a":"FIN","n":"8","f":"MIA","t":"HEL","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"11","f":"HEL","t":"SFO","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"12","f":"SFO","t":"HEL","ac":"Airbus A330-300"},{"d":"2022-06","a":"FIN","n":"1301","f":"HEL","t":"AMS","ac":"Airbus A350-900"},{"d":"2022-11","a":"IBE","n":"1653","f":"HEL","t":"BCN","ac":"Airbus A321"},{"d":"2022-11","a":"AAL","n":"839","f":"TPA","t":"DFW","ac":"Boeing 737-800"},{"d":"2022-11","a":"FIN","n":"20","f":"DFW","t":"HEL","ac":"Airbus A350-900"},{"d":"2022-12","a":"FIN","n":"15","f":"HEL","t":"JFK","ac":"Airbus A330-300"},{"d":"2022-12","a":"FIN","n":"16","f":"JFK","t":"HEL","ac":"Airbus A330-300"},{"d":"2023-07","a":"FIN","n":"366","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2024-01","a":"FIN","n":"1739","f":"HEL","t":"LIS","ac":"Airbus A321"},{"d":"2024-01","a":"FIN","n":"1740","f":"LIS","t":"HEL","ac":"Airbus A321"},{"d":"2024-03","a":"FIN","n":"1662","f":"MAD","t":"HEL","ac":"Airbus A321"},{"d":"2024-09","a":"FIN","n":"1141","f":"HEL","t":"WAW","ac":"Airbus A319"},{"d":"2024-09","a":"FIN","n":"1146","f":"WAW","t":"HEL","ac":"Embraer 190"},{"d":"2025-04","a":"CPA","n":"612","f":"CMB","t":"HKG","ac":"Airbus A330-300"},{"d":"2025-04","a":"CPA","n":"162","f":"SYD","t":"HKG","ac":"Boeing 777-300 ER"},{"d":"2025-04","a":"FIN","n":"100","f":"HKG","t":"HEL","ac":"Airbus A350-900"},{"d":"2025-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2025-07","a":"FIN","n":"1401","f":"HEL","t":"MUC","ac":"Airbus A320"},{"d":"2025-08","a":"FIN","n":"1406","f":"MUC","t":"HEL","ac":"Airbus A319"},{"d":"2025-08","a":"FIN","n":"369","f":"HEL","t":"KUO","ac":"ATR 72"},{"d":"2025-10","a":"FIN","n":"1416","f":"FRA","t":"HEL","ac":"Airbus A320"},{"d":"2025-12","a":"FIN","n":"532","f":"RVN","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"551","f":"HEL","t":"RVN","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"572","f":"KTT","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"546","f":"RVN","t":"HEL","ac":"Airbus A320"},{"d":"2026-05","a":"FIN","n":"435","f":"HEL","t":"OUL","ac":"Airbus A321"},{"d":"2026-07","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"142","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-08","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-09","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"}],"settings":{"showAmounts":false,"showFlights":true,"flNote":false,"flTitle":false,"flEyebrow":false,"flLabels":false},"lastPrices":{"at":1790542346224,"p":{"XPL":{"price":0.10759,"change":-0.0352},"ETH":{"price":2687.24,"change":0.0054},"CRO":{"price":0.06736,"change":0.036},"SUI":{"price":1.25993,"change":0.107},"BTC":{"price":84561.6,"change":0.0071},"RENDER":{"price":2.0278,"change":0.0445},"AVAX":{"price":10.988,"change":0.0375},"USDT":{"price":0.99981,"change":-0.0001}}}}</script>
+<script type="application/json" id="state">{"v":1,"sample":false,"profile":{"name":"Kristian","role":"Monitoimimies","status":"Heit koodii","intro":"Meikäl o piru upee octavia. osaan mä duuniiki tehdä.","about":"Just a pawn, playing along, try'na do what's right 🗣️","email":"kristian@black.com","skills":["Creative person","Just a bit autistic","Driving","Fucking around","Finding out"],"links":[],"cta":"Please don't contact me.","ctaSecret":"But if you do, email me.","carLabel":"Horsepower","carValue":"318","carUnit":"hp","car3Value":"296"},"experience":[{"from":"2024","to":"Now","role":"Field Service Technician","company":"City of Helsinki","place":"Helsinki, Finland","summary":"Laiteasentaja Helsingin kaupungilla","fromM":"9"},{"from":"2023","to":"2023","role":"Motor Vehicle Operator","company":"FInnish Defence Forces","place":"On-Site","summary":"Served in the military for a year","fromM":"1","toM":"12"},{"from":"2022","to":"2022","role":"IT Technician","company":"HUS | Infocare","place":"On-site","summary":"I worked at Infocare (now Onitio) under the HUS account in Proactive Device Replacement. My tasks included replacing old computers and peripherals with new ones, using Active Directory, cross-connects, inventory management, and reaching out to customers.","fromM":"2","toM":"12"},{"from":"2021","to":"2021","role":"Electrician","company":"E-Avenue","place":"On-Site","summary":"","fromM":"9","toM":"12"},{"from":"2019","to":"2019","role":"Intern","company":"Prisma Jumbo","place":"On-Site","summary":"Summer Job, stocked shelves, helped customers. Yadi yadi yada","fromM":"7","toM":"8"},{"from":"2018","to":"2018","role":"Intern","company":"Finnair Sky Shop","place":"On-Site","summary":"Stocked shelves for a week","fromM":"2","toM":"2"}],"holdings":[{"sym":"XPL","amount":100000,"cost":null},{"sym":"ETH","amount":0.2,"cost":null},{"sym":"CRO","amount":146535,"cost":null},{"sym":"SUI","amount":85,"cost":null},{"sym":"BTC","amount":0.00036655,"cost":null},{"sym":"RENDER","amount":10.7832,"cost":null},{"sym":"AVAX","amount":1.83,"cost":null},{"sym":"USDT","amount":20846.49,"cost":null}],"flights":[{"d":"2011-07","a":"FIN","n":"61","f":"HEL","t":"HKG","ac":"Airbus A330-300"},{"d":"2011-07","a":"FIN","n":"8862","f":"HKG","t":"HEL","ac":""},{"d":"2011-12","a":"FIN","n":"961","f":"HEL","t":"DXB","ac":"Boeing 757-200"},{"d":"2011-12","a":"UAE","n":"412","f":"DXB","t":"SYD","ac":"Airbus A380-800"},{"d":"2012-01","a":"FIN","n":"8854","f":"ICN","t":"HEL","ac":""},{"d":"2012-01","a":"KAL","n":"122","f":"SYD","t":"ICN","ac":"Boeing 747-400"},{"d":"2018-03","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2018-03","a":"FIN","n":"146","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2018-12","a":"FIN","n":"1337","f":"HEL","t":"LHR","ac":"Airbus A321"},{"d":"2018-12","a":"FIN","n":"1336","f":"LHR","t":"HEL","ac":"Airbus A321"},{"d":"2019-02","a":"FIN","n":"7","f":"HEL","t":"MIA","ac":"Airbus A330-300"},{"d":"2019-02","a":"FIN","n":"8","f":"MIA","t":"HEL","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"11","f":"HEL","t":"SFO","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"12","f":"SFO","t":"HEL","ac":"Airbus A330-300"},{"d":"2022-06","a":"FIN","n":"1301","f":"HEL","t":"AMS","ac":"Airbus A350-900"},{"d":"2022-11","a":"IBE","n":"1653","f":"HEL","t":"BCN","ac":"Airbus A321"},{"d":"2022-11","a":"AAL","n":"839","f":"TPA","t":"DFW","ac":"Boeing 737-800"},{"d":"2022-11","a":"FIN","n":"20","f":"DFW","t":"HEL","ac":"Airbus A350-900"},{"d":"2022-12","a":"FIN","n":"15","f":"HEL","t":"JFK","ac":"Airbus A330-300"},{"d":"2022-12","a":"FIN","n":"16","f":"JFK","t":"HEL","ac":"Airbus A330-300"},{"d":"2023-07","a":"FIN","n":"366","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2024-01","a":"FIN","n":"1739","f":"HEL","t":"LIS","ac":"Airbus A321"},{"d":"2024-01","a":"FIN","n":"1740","f":"LIS","t":"HEL","ac":"Airbus A321"},{"d":"2024-03","a":"FIN","n":"1662","f":"MAD","t":"HEL","ac":"Airbus A321"},{"d":"2024-09","a":"FIN","n":"1141","f":"HEL","t":"WAW","ac":"Airbus A319"},{"d":"2024-09","a":"FIN","n":"1146","f":"WAW","t":"HEL","ac":"Embraer 190"},{"d":"2025-04","a":"CPA","n":"612","f":"CMB","t":"HKG","ac":"Airbus A330-300"},{"d":"2025-04","a":"CPA","n":"162","f":"SYD","t":"HKG","ac":"Boeing 777-300 ER"},{"d":"2025-04","a":"FIN","n":"100","f":"HKG","t":"HEL","ac":"Airbus A350-900"},{"d":"2025-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2025-07","a":"FIN","n":"1401","f":"HEL","t":"MUC","ac":"Airbus A320"},{"d":"2025-08","a":"FIN","n":"1406","f":"MUC","t":"HEL","ac":"Airbus A319"},{"d":"2025-08","a":"FIN","n":"369","f":"HEL","t":"KUO","ac":"ATR 72"},{"d":"2025-10","a":"FIN","n":"1416","f":"FRA","t":"HEL","ac":"Airbus A320"},{"d":"2025-12","a":"FIN","n":"532","f":"RVN","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"551","f":"HEL","t":"RVN","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"572","f":"KTT","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"546","f":"RVN","t":"HEL","ac":"Airbus A320"},{"d":"2026-05","a":"FIN","n":"435","f":"HEL","t":"OUL","ac":"Airbus A321"},{"d":"2026-07","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"142","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-08","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-09","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"}],"settings":{"showAmounts":false,"showFlights":true,"flNote":false,"flTitle":false,"flEyebrow":false,"flLabels":false,"showGallery":false},"lastPrices":{"at":1790543154035,"p":{"XPL":{"price":0.10759,"change":-0.0352},"ETH":{"price":2686.92,"change":0.0029},"CRO":{"price":0.06731,"change":0.0251},"SUI":{"price":1.26998,"change":0.1083},"BTC":{"price":84583.83,"change":0.0057},"RENDER":{"price":2.0085,"change":0.0216},"AVAX":{"price":10.949,"change":0.0237},"USDT":{"price":0.9998,"change":-0.0001}}},"gallery":[{"src":"gallery/1.jpg","cap":"Octavia · front three-quarter"},{"src":"gallery/2.jpg","cap":"Octavia · rear, RS lip"},{"src":"gallery/3.jpg","cap":"Octavia · profile"},{"src":"gallery/4.jpg","cap":"Octavia · low front"}]}</script>
 <script src="vendor/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="vendor/GLTFLoader.js"></script>
@@ -333,7 +367,7 @@ var FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel=
 var SERVER="Crypto.com", STASH="jani-portfolio-draft";
 var $=function(s){return document.querySelector(s)};
 var headStyle=document.head&&document.head.querySelector("style");
-var PRISTINE={reset:headStyle?headStyle.textContent:"",css:document.getElementById("css").textContent,shell:document.getElementById("shell").outerHTML,app:document.getElementById("app").textContent};
+var PRISTINE={reset:":root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}",css:document.getElementById("css").textContent,shell:document.getElementById("shell").outerHTML,app:document.getElementById("app").textContent};
 var state;
 try{state=JSON.parse(document.getElementById("state").textContent)}catch(e){state={profile:{name:"Portfolio"},experience:[],holdings:[],settings:{showAmounts:true}}}
 state.settings=state.settings||{showAmounts:true};
@@ -560,6 +594,12 @@ function renderEditor(){
   h+='<p class="hint" style="margin-top:8px">Show in the flight section:</p>';
   [["flEyebrow","Label line (Flight log · number of flights)"],["flTitle","Heading (Miles in the air)"],["flNote","Description text"],["flLabels","Airport codes on the map"],["flStats","Stats row (flights, distance, airports…)"],["flLists","Route lists (most flown, latest, all flights)"]].forEach(function(o){var v=d.settings[o[0]];v=v==null?FL_DEF[o[0]]:v!==false;h+='<label class="check" for="f-'+o[0]+'"><input type="checkbox" id="f-'+o[0]+'" data-path="settings.'+o[0]+'" data-type="bool"'+(v?" checked":"")+'><span>'+o[1]+'</span></label>'});
  }
+ if(tab==="gallery"){h="";var G=d.gallery=d.gallery||[];
+  h+='<p class="hint">Photos are resized to 1600px and stored in the page. Drag order with the arrows; the caption shows as a glass tag on the photo.</p>';
+  G.forEach(function(g,i){h+='<div class="card ed-thumb"><img src="'+esc(g.src)+'" alt="">'+field("Caption","gallery."+i+".cap",g.cap,{ph:"optional"})+'<span class="icon-btns"><button type="button" data-act="up-g" data-i="'+i+'" aria-label="Move up">↑</button><button type="button" data-act="down-g" data-i="'+i+'" aria-label="Move down">↓</button><button type="button" data-act="del-g" data-i="'+i+'" aria-label="Remove photo">✕</button></span></div>'});
+  h+='<div class="drop" id="lgDrop"><label class="ghost" for="f-lgfiles">Add photos</label><input type="file" id="f-lgfiles" accept="image/*" multiple hidden><span class="hint" id="lgUpMsg">Or drop images here.</span></div>';
+  h+='<label class="check" for="f-showlg"><input type="checkbox" id="f-showlg" data-path="settings.showGallery" data-type="bool"'+(d.settings.showGallery!==false?" checked":"")+'><span>Show the gallery on the page.</span></label>';
+ }
  $("#edBody").innerHTML=h;
 }
 function setPath(o,path,v){var k=path.split(".");for(var i=0;i<k.length-1;i++)o=o[k[i]];o[k[k.length-1]]=v}
@@ -594,7 +634,7 @@ function save(){
  try{sessionStorage.setItem(STASH,JSON.stringify(d))}catch(e){}
  var btn=$("#edSave"),msg=$("#edMsg");btn.disabled=true;msg.textContent="Publishing…";
  var doc=buildDoc(d);
- function done(){try{sessionStorage.removeItem(STASH)}catch(e){}state=d;renderProfile();renderXP();renderFlights();unsubs.forEach(function(u){try{u()}catch(x){}});unsubs=[];live={};spark={};rowErr={};liveMsg=null;renderRows();startLive();msg.textContent="Published.";btn.disabled=false;setTimeout(closeEditor,600)}
+ function done(){try{sessionStorage.removeItem(STASH)}catch(e){}state=d;renderProfile();renderXP();renderGallery();renderFlights();unsubs.forEach(function(u){try{u()}catch(x){}});unsubs=[];live={};spark={};rowErr={};liveMsg=null;renderRows();startLive();msg.textContent="Published.";btn.disabled=false;setTimeout(closeEditor,600)}
  ART.publish({"index.html":{content:doc,contentType:"text/html"}}).then(done,function(e){
   if(e&&e.code==="capability_disabled")return ART.publish(doc).then(function(){try{sessionStorage.removeItem(STASH)}catch(x){}msg.textContent="Published. Reloading the page…"});
   throw e}).catch(function(e){
@@ -612,13 +652,16 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#drawer"
 $("#tabs").addEventListener("click",function(e){var b=e.target.closest("button[data-tab]");if(!b)return;tab=b.getAttribute("data-tab");renderEditor()});
 $("#edBody").addEventListener("input",function(e){var t=e.target,p=t.getAttribute("data-path");if(!p)return;var ty=t.getAttribute("data-type"),v=t.value;
  if(ty==="bool")v=t.checked;else if(ty==="csv")v=v.split(",").map(function(s){return s.trim()}).filter(Boolean);else if(ty==="num")v=v.trim()===""?null:v.trim();setPath(draft,p,v)});
-$("#edBody").addEventListener("change",function(e){var t=e.target;if(t.id==="f-flcsv"&&t.files&&t.files[0]){flReadFile(t.files[0]);return}if(t.getAttribute("data-type")==="bool")setPath(draft,t.getAttribute("data-path"),t.checked)});
+$("#edBody").addEventListener("change",function(e){var t=e.target;if(t.id==="f-flcsv"&&t.files&&t.files[0]){flReadFile(t.files[0]);return}if(t.id==="f-lgfiles"&&t.files&&t.files.length){lgAdd(t.files);return}if(t.getAttribute("data-type")==="bool")setPath(draft,t.getAttribute("data-path"),t.checked)});
+function lgAdd(files){var msg=$("#lgUpMsg"),list=Array.prototype.filter.call(files,function(f){return/^image\//.test(f.type)});if(!list.length){if(msg)msg.textContent="Those files aren't images.";return}
+ if(msg)msg.textContent="Adding "+list.length+(list.length===1?" photo…":" photos…");
+ Promise.all(list.map(function(f){return lgResize(f).then(function(src){return{src:src,cap:""}},function(e){return{err:e.message}})})).then(function(rs){draft.gallery=draft.gallery||[];var bad=[];rs.forEach(function(r){if(r.src)draft.gallery.push(r);else bad.push(r.err)});renderEditor();var m=$("#lgUpMsg");if(m)m.textContent=(rs.length-bad.length)+" added. Save & publish to show them."+(bad.length?" "+bad.join(". ")+".":"")})}
 function flReadFile(file){var msg=$("#flUpMsg");var fr=new FileReader();fr.onload=function(){try{var fs=parseFlighty(String(fr.result));draft.flights=fs;var miss={};if(FL.ap)fs.forEach(function(f){[f.f,f.t].forEach(function(c){if(!FL.ap[c])miss[c]=1})});
   renderEditor();var m=$("#flUpMsg");if(m)m.textContent=fs.length+" flights read from "+file.name+"."+(Object.keys(miss).length?" Unknown airport codes, left off the map: "+Object.keys(miss).join(", ")+".":"")+" Save & publish to update the page."}catch(err){if(msg)msg.textContent=err.message}};
  fr.onerror=function(){if(msg)msg.textContent="Couldn't read that file. Try exporting it again."};fr.readAsText(file)}
-$("#edBody").addEventListener("dragover",function(e){var z=e.target.closest&&e.target.closest("#flDrop");if(z){e.preventDefault();z.classList.add("over")}});
-$("#edBody").addEventListener("dragleave",function(e){var z=e.target.closest&&e.target.closest("#flDrop");if(z)z.classList.remove("over")});
-$("#edBody").addEventListener("drop",function(e){var z=e.target.closest&&e.target.closest("#flDrop");if(!z)return;e.preventDefault();z.classList.remove("over");var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)flReadFile(f)});
+$("#edBody").addEventListener("dragover",function(e){var z=e.target.closest&&e.target.closest("#flDrop,#lgDrop");if(z){e.preventDefault();z.classList.add("over")}});
+$("#edBody").addEventListener("dragleave",function(e){var z=e.target.closest&&e.target.closest("#flDrop,#lgDrop");if(z)z.classList.remove("over")});
+$("#edBody").addEventListener("drop",function(e){var zg=e.target.closest&&e.target.closest("#lgDrop");if(zg){e.preventDefault();zg.classList.remove("over");if(e.dataTransfer&&e.dataTransfer.files)lgAdd(e.dataTransfer.files);return}var z=e.target.closest&&e.target.closest("#flDrop,#lgDrop");if(!z)return;e.preventDefault();z.classList.remove("over");var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)flReadFile(f)});
 $("#edBody").addEventListener("click",function(e){var b=e.target.closest("button[data-act]");if(!b)return;var a=b.getAttribute("data-act"),i=+b.getAttribute("data-i"),x=draft.experience;
  if(a==="add-xp")x.push({from:"",to:"",role:"",company:"",place:"",summary:""});
  else if(a==="del-xp")x.splice(i,1);
@@ -628,6 +671,9 @@ $("#edBody").addEventListener("click",function(e){var b=e.target.closest("button
  else if(a==="del-h")draft.holdings.splice(i,1);
  else if(a==="add-link")draft.profile.links.push({label:"",url:""});
  else if(a==="del-link")draft.profile.links.splice(i,1);
+ else if(a==="del-g")draft.gallery.splice(i,1);
+ else if(a==="up-g"&&i>0)draft.gallery.splice(i-1,0,draft.gallery.splice(i,1)[0]);
+ else if(a==="down-g"&&i<draft.gallery.length-1)draft.gallery.splice(i+1,0,draft.gallery.splice(i,1)[0]);
  renderEditor();});
 document.addEventListener("click",function(e){
  var b=e.target.closest("#copyBtn");if(b){var t=$("#emailText").textContent;try{navigator.clipboard.writeText(t).then(function(){b.textContent="Copied"},function(){selectEmail()})}catch(x){selectEmail()}return}
@@ -840,8 +886,41 @@ function frame(now){
  requestAnimationFrame(frame);
 }
 
+/* ---------- gallery (liquid glass carousel) ---------- */
+var LG={i:0,n:0,t:0,idle:0,inView:false,init:false};
+try{if(/Chrome\//.test(navigator.userAgent)&&!/Edg\/|OPR\//.test(navigator.userAgent)&&!/iPhone|iPad|Mac OS X.*Version\//.test(navigator.userAgent))document.documentElement.classList.add("lg-refract")}catch(e){}
+function renderGallery(){
+ var items=(state.gallery||[]).filter(function(g){return g&&g.src}),show=state.settings.showGallery!==false&&items.length>0,sec=$("#gallery");
+ sec.hidden=!show;var nl=document.querySelector('.links a[data-go="gallery"]');if(nl)nl.parentElement.hidden=!show;if(!show)return;
+ LG.n=items.length;$("#lgMeta").textContent="· "+items.length+(items.length===1?" photo":" photos");
+ $("#lgTrack").innerHTML=items.map(function(g,k){return'<figure class="lg-slide" role="group" aria-roledescription="slide" aria-label="'+(k+1)+" of "+items.length+'"><img src="'+esc(g.src)+'" alt="'+esc(g.cap||"Photo "+(k+1))+'" loading="'+(k<2?"eager":"lazy")+'" decoding="async" draggable="false">'+(g.cap?'<figcaption class="lg-cap glass">'+esc(g.cap)+"</figcaption>":"")+"</figure>"}).join("");
+ $("#lgDots").innerHTML=items.map(function(g,k){return'<button type="button" aria-label="Go to photo '+(k+1)+'" data-k="'+k+'"></button>'}).join("");
+ $("#lgCtrl").hidden=items.length<2;
+ LG.i=Math.min(LG.i,items.length-1);lgMark();requestAnimationFrame(function(){lgGo(LG.i,true)});
+ if(!LG.init)lgInit();
+}
+function lgSlides(){return $("#lgTrack").children}
+function lgGo(k,instant){var tr=$("#lgTrack"),sl=lgSlides();if(!sl.length)return;k=(k+sl.length)%sl.length;var el=sl[k];tr.scrollTo({left:el.offsetLeft-(tr.clientWidth-el.clientWidth)/2,behavior:instant||reduce?"auto":"smooth"});LG.i=k;lgMark()}
+function lgMark(){var sl=lgSlides(),d=$("#lgDots").children;for(var k=0;k<sl.length;k++){sl[k].classList.toggle("on",k===LG.i);if(d[k])d[k].setAttribute("aria-current",k===LG.i?"true":"false")}$("#lgCount").textContent=String(LG.i+1).padStart(2,"0")+" / "+String(sl.length).padStart(2,"0")}
+function lgNearest(){var tr=$("#lgTrack"),c=tr.scrollLeft+tr.clientWidth/2,sl=lgSlides(),best=0,bd=1e9;for(var k=0;k<sl.length;k++){var m=sl[k].offsetLeft+sl[k].clientWidth/2,dd=Math.abs(m-c);if(dd<bd){bd=dd;best=k}}return best}
+function lgInit(){LG.init=true;var tr=$("#lgTrack"),raf=0;
+ tr.addEventListener("scroll",function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;var k=lgNearest();if(k!==LG.i){LG.i=k;lgMark()}})},{passive:true});
+ $("#lgPrev").addEventListener("click",function(){LG.idle=Date.now();lgGo(LG.i-1)});
+ $("#lgNext").addEventListener("click",function(){LG.idle=Date.now();lgGo(LG.i+1)});
+ $("#lgDots").addEventListener("click",function(e){var b=e.target.closest("button[data-k]");if(b){LG.idle=Date.now();lgGo(+b.getAttribute("data-k"))}});
+ tr.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){e.preventDefault();LG.idle=Date.now();lgGo(LG.i+1)}else if(e.key==="ArrowLeft"){e.preventDefault();LG.idle=Date.now();lgGo(LG.i-1)}});
+ var dn=null;tr.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse"||e.button!==0)return;dn={x:e.clientX,l:tr.scrollLeft,m:false};LG.idle=Date.now()});
+ addEventListener("pointermove",function(e){if(!dn)return;var dx=e.clientX-dn.x;if(!dn.m&&Math.abs(dx)>4){dn.m=true;tr.classList.add("drag")}if(dn.m)tr.scrollLeft=dn.l-dx});
+ addEventListener("pointerup",function(){if(!dn)return;var moved=dn.m;dn=null;tr.classList.remove("drag");if(moved)lgGo(lgNearest())});
+ tr.addEventListener("touchstart",function(){LG.idle=Date.now()},{passive:true});tr.addEventListener("mouseenter",function(){LG.hover=true});tr.addEventListener("mouseleave",function(){LG.hover=false});
+ if("IntersectionObserver" in window)new IntersectionObserver(function(es){LG.inView=es[0].isIntersecting},{threshold:.4}).observe($("#lg"));
+ addEventListener("resize",function(){lgGo(LG.i,true)});
+ setInterval(function(){if(reduce||!LG.inView||LG.hover||document.hidden||LG.n<2||Date.now()-LG.idle<9000)return;lgGo(LG.i+1)},5200);
+}
+function lgResize(file){return new Promise(function(res,rej){var fr=new FileReader();fr.onerror=function(){rej(new Error("Couldn't read "+file.name))};fr.onload=function(){var im=new Image();im.onload=function(){var M=1600,w=im.naturalWidth,h=im.naturalHeight,k=Math.min(1,M/Math.max(w,h)),c=document.createElement("canvas");c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.82))};im.onerror=function(){rej(new Error(file.name+" isn't an image this browser can open"))};im.src=fr.result};fr.readAsDataURL(file)})}
+
 /* ---------- boot ---------- */
-renderProfile();renderXP();renderRows();loadFlights();
+renderProfile();renderXP();renderGallery();renderRows();loadFlights();
 initGL();startLive();
 requestAnimationFrame(frame);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitName);
