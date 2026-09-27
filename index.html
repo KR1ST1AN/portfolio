@@ -779,10 +779,19 @@ function initGL(){
   var g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
   var m=new T.Mesh(g,M);m.name="spoiler";car.add(m);
  }catch(e){}}
+ /* second tailpipe beside the original one (original sits at about x 1.66, y 1.72) */
+ function addExhaust(car,mat){try{
+  var M=mat?mat.clone():new T.MeshStandardMaterial({color:0x080808,roughness:.6});M.side=T.DoubleSide;
+  var gp=new T.Group(),L=.4,zc=-8.6,zt=zc-L/2;
+  var tube=new T.Mesh(new T.CylinderGeometry(.105,.105,L,28,1,true),M);tube.rotation.x=Math.PI/2;tube.position.z=zc;gp.add(tube);
+  var rim=new T.Mesh(new T.TorusGeometry(.1,.013,10,28),M);rim.position.z=zt;gp.add(rim);
+  var cap=new T.Mesh(new T.CircleGeometry(.095,24),new T.MeshBasicMaterial({color:0,side:T.DoubleSide}));cap.position.z=zt+.08;gp.add(cap);
+  gp.position.set(1.37,1.72,0);gp.name="exhaust2";car.add(gp);
+ }catch(e){}}
  var st=$("#carStatus");function carMsg(t){if(st){st.textContent=t;st.hidden=!t}}
  if(!T.GLTFLoader){carMsg("3D car couldn't load: the 3D loader script didn't load.")}
  else{carMsg("Loading 3D car…");
-  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene,paint=null;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){paint=m;m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});addSpoiler(car,paint);var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
+  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene,paint=null,pipeMat=null;car.traverse(function(o){var m=o.material;if(o.name==="Object_21"&&m)pipeMat=m;if(m&&m.name==="car_paint"){paint=m;m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});addSpoiler(car,paint);addExhaust(car,pipeMat);var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
     car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;gl.carTop=sz.y*s;carMsg("")},undefined,function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model file wasn't found")+".")})}
  function size(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
  size();addEventListener("resize",size);
