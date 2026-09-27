@@ -48,15 +48,16 @@ main,footer{position:relative;z-index:2;max-width:1400px;margin-inline:auto}
 
 /* hero */
 .hero{min-height:82svh;display:grid;align-content:end;gap:clamp(24px,4vw,48px);padding-block:clamp(120px,18vh,200px) 40px;--wd:150}
-.car-spec{position:absolute;right:0;top:clamp(104px,15vh,150px);margin:0;display:grid;justify-items:center;gap:0;text-align:center;animation:fade 1s var(--ease) .9s both}
+.car-spec{position:absolute;right:0;top:clamp(104px,15vh,150px);margin:0;display:flex;gap:clamp(14px,2vw,28px);animation:fade 1s var(--ease) .9s both}
+.car-spec .g{display:grid;justify-items:center;text-align:center}
 .car-spec svg{width:132px;height:74px;display:block;overflow:visible}
 .car-spec .trk{fill:none;stroke:var(--line2);stroke-width:3;stroke-linecap:round}
 .car-spec .val{fill:none;stroke:url(#spdG);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(232,193,90,.55))}
 .car-spec .tick{stroke:var(--dim);stroke-width:1}
-.car-spec .num{font:500 2rem/1 var(--f-m);letter-spacing:-.04em;color:var(--au1);font-variant-numeric:tabular-nums;margin:-34px 0 0;display:grid;justify-items:center}
+.car-spec .num{font:500 1.8rem/1 var(--f-m);letter-spacing:-.04em;color:var(--au1);font-variant-numeric:tabular-nums;margin:-34px 0 0;display:grid;justify-items:center}
 .car-spec .num small{font-size:.62rem;letter-spacing:.12em;color:var(--mist);margin-top:4px}
 .car-spec .lbl2{font:500 .64rem var(--f-m);letter-spacing:.16em;text-transform:uppercase;color:var(--mist);margin:12px 0 0}
-@media (max-width:760px){.car-spec{top:78px}.car-spec svg{width:96px;height:54px}.car-spec .num{font-size:1.45rem;margin-top:-26px}.car-spec .lbl2{margin-top:8px}}
+@media (max-width:760px){.car-spec{top:78px;gap:10px}.car-spec svg{width:88px;height:50px}.car-spec .num{font-size:1.45rem;margin-top:-26px}.car-spec .lbl2{margin-top:8px}}
 .car-status{position:absolute;right:0;top:calc(clamp(104px,15vh,150px) + 130px);margin:0;font:.72rem var(--f-m);letter-spacing:.08em;color:var(--mist);max-width:36ch;text-align:right}
 .hero{position:relative}
 .hero-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -264,7 +265,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 <main id="top">
  <section class="hero" id="hero">
   <div class="hero-top"><p class="eyebrow"><b>Portfolio</b><span id="yearTag"></span></p><span class="chip sample" id="sampleChip" hidden="">Sample content · open Edit to make it yours</span></div>
-  <div class="car-spec" id="carSpec" hidden=""><svg viewBox="0 0 132 74" aria-hidden="true"><defs><linearGradient id="spdG" x1="0" x2="1"><stop offset="0" stop-color="#A8822A"></stop><stop offset="1" stop-color="#F3DDA0"></stop></linearGradient></defs><g id="spdTicks"></g><path class="trk" d="M10 68 A56 56 0 0 1 122 68"></path><path class="val" id="spdArc" d="M10 68 A56 56 0 0 1 122 68" pathLength="100" stroke-dasharray="0 100"></path></svg><p class="num" id="spdNum">0<small id="spdUnit">km/h</small></p><p class="lbl2" id="spdLbl">Top speed</p></div>
+  <div class="car-spec" id="carSpec" hidden=""></div>
   <p class="car-status" id="carStatus" hidden=""></p>
   <h1 class="hero-name" id="heroName" aria-label="Jani">Jani</h1>
   <div class="hero-meta">
@@ -374,17 +375,24 @@ function renderProfile(){
  document.title=name+"'s Portfolio";
  fitName();
 }
-function renderSpec(){
- var p=state.profile||{},box=$("#carSpec"),v=parseFloat(String(p.carValue==null?"269":p.carValue).replace(",",".")),unit=p.carUnit==null?"km/h":p.carUnit,lbl=p.carLabel==null?"Top speed":p.carLabel;
- box.hidden=!(v>0);if(box.hidden)return;
- $("#spdLbl").textContent=lbl;$("#spdUnit").textContent=unit;
- var max=Math.max(100,Math.ceil(v*1.12/50)*50),frac=Math.min(1,v/max),t="";
- for(var i=0;i<=10;i++){var a=Math.PI*(1-i/10),r1=62,r2=i%5?59:56;t+='<line class="tick" x1="'+(66+r1*Math.cos(a)).toFixed(1)+'" y1="'+(68-r1*Math.sin(a)).toFixed(1)+'" x2="'+(66+r2*Math.cos(a)).toFixed(1)+'" y2="'+(68-r2*Math.sin(a)).toFixed(1)+'"/>'}
- $("#spdTicks").innerHTML=t;
- var arc=$("#spdArc"),num=$("#spdNum").firstChild,dur=reduce?0:1600,t0=null,delay=reduce?0:1000;
- function step(ts){if(t0===null)t0=ts;var k=dur?Math.min(1,(ts-t0)/dur):1;k=1-Math.pow(1-k,3);arc.setAttribute("stroke-dasharray",(frac*100*k).toFixed(2)+" 100");num.nodeValue=String(Math.round(v*k));if(k<1)requestAnimationFrame(step)}
- setTimeout(function(){requestAnimationFrame(step)},delay);
+function specList(pp){
+ var p=pp||state.profile||{},D=[["car","Horsepower","318","hp"],["car2","Top speed","269","km/h"],["car3","Torque","","Nm"]];
+ return D.map(function(d){var k=d[0],l=p[k+"Label"],v=p[k+"Value"],u=p[k+"Unit"];return{key:k,label:l==null?d[1]:String(l),value:v==null?d[2]:String(v),unit:u==null?d[3]:String(u)}});
 }
+function renderSpec(){
+ var box=$("#carSpec"),gs=specList().map(function(g){g.v=parseFloat(g.value.replace(",","."));return g}).filter(function(g){return g.v>0});
+ box.hidden=!gs.length;if(box.hidden){box.innerHTML="";return}
+ var ticks="";
+ for(var i=0;i<=10;i++){var a=Math.PI*(1-i/10),r1=62,r2=i%5?59:56;ticks+='<line class="tick" x1="'+(66+r1*Math.cos(a)).toFixed(1)+'" y1="'+(68-r1*Math.sin(a)).toFixed(1)+'" x2="'+(66+r2*Math.cos(a)).toFixed(1)+'" y2="'+(68-r2*Math.sin(a)).toFixed(1)+'"/>'}
+ box.innerHTML=gs.map(function(g,n){return'<div class="g"><svg viewBox="0 0 132 74" aria-hidden="true">'+(n?"":'<defs><linearGradient id="spdG" x1="0" x2="1"><stop offset="0" stop-color="#A8822A"/><stop offset="1" stop-color="#F3DDA0"/></linearGradient></defs>')+'<g>'+ticks+'</g><path class="trk" d="M10 68 A56 56 0 0 1 122 68"/><path class="val" d="M10 68 A56 56 0 0 1 122 68" pathLength="100" stroke-dasharray="0 100"/></svg><p class="num">0<small>'+esc(g.unit)+'</small></p><p class="lbl2">'+esc(g.label)+"</p></div>"}).join("");
+ var els=box.querySelectorAll(".g");
+ gs.forEach(function(g,n){
+  var max=Math.max(100,Math.ceil(g.v*1.12/50)*50),frac=Math.min(1,g.v/max),arc=els[n].querySelector(".val"),num=els[n].querySelector(".num").firstChild,dur=reduce?0:1600,t0=null,dec=g.v%1?1:0;
+  function step(ts){if(t0===null)t0=ts;var k=dur?Math.min(1,(ts-t0)/dur):1;k=1-Math.pow(1-k,3);arc.setAttribute("stroke-dasharray",(frac*100*k).toFixed(2)+" 100");num.nodeValue=(g.v*k).toFixed(dec);if(k<1)requestAnimationFrame(step)}
+  setTimeout(function(){requestAnimationFrame(step)},reduce?0:1000+n*180);
+ });
+}
+
 function fitName(){
  var h=$("#heroName");if(!h)return;var hero=$("#hero");
  h.style.fontSize="100px";hero.style.setProperty("--wd",150);
@@ -521,7 +529,7 @@ function renderEditor(){
  Array.prototype.forEach.call(document.querySelectorAll("#tabs button"),function(b){b.setAttribute("aria-selected",b.getAttribute("data-tab")===tab?"true":"false")});
  var d=draft,p=d.profile,h="";
  if(tab==="profile"){
-  h+=field("Name","profile.name",p.name)+field("Role","profile.role",p.role,{ph:"e.g. Product designer"})+field("Status line","profile.status",p.status,{ph:"e.g. Open to new projects"})+field("Intro","profile.intro",p.intro,{area:1})+field("About statement","profile.about",p.about,{area:1})+field("Contact heading (press Enter for a new line; the last word turns gold)","profile.cta",p.cta==null?"Let's build\nsomething alive.":p.cta,{area:1})+field("Hidden text (revealed under the cursor; leave empty to turn off)","profile.ctaSecret",p.ctaSecret==null?"Okay fine, say hi.":p.ctaSecret,{area:1})+'<div class="grid3" style="grid-template-columns:1.2fr .8fr .7fr">'+field("Car stat label","profile.carLabel",p.carLabel==null?"Top speed":p.carLabel)+field("Value","profile.carValue",p.carValue==null?"269":p.carValue,{mode:"decimal",ph:"leave empty to hide"})+field("Unit","profile.carUnit",p.carUnit==null?"km/h":p.carUnit)+"</div>"+field("Email","profile.email",p.email,{ph:"you@domain.com"})+field("Skills (comma separated)","profile.skills",(p.skills||[]).join(", "),{type:"csv"});
+  h+=field("Name","profile.name",p.name)+field("Role","profile.role",p.role,{ph:"e.g. Product designer"})+field("Status line","profile.status",p.status,{ph:"e.g. Open to new projects"})+field("Intro","profile.intro",p.intro,{area:1})+field("About statement","profile.about",p.about,{area:1})+field("Contact heading (press Enter for a new line; the last word turns gold)","profile.cta",p.cta==null?"Let's build\nsomething alive.":p.cta,{area:1})+field("Hidden text (revealed under the cursor; leave empty to turn off)","profile.ctaSecret",p.ctaSecret==null?"Okay fine, say hi.":p.ctaSecret,{area:1})+specList(p).map(function(g,n){return'<div class="grid3" style="grid-template-columns:1.2fr .8fr .7fr">'+field("Gauge "+(n+1)+" label","profile."+g.key+"Label",g.label)+field("Value","profile."+g.key+"Value",g.value,{mode:"decimal",ph:"empty = hidden"})+field("Unit","profile."+g.key+"Unit",g.unit)+"</div>"}).join("")+field("Email","profile.email",p.email,{ph:"you@domain.com"})+field("Skills (comma separated)","profile.skills",(p.skills||[]).join(", "),{type:"csv"});
   h+='<div class="card"><div class="card-top">Links</div>';(p.links=p.links||[]).forEach(function(l,i){h+='<div class="grid3" style="grid-template-columns:1fr 1.6fr auto">'+field("Label","profile.links."+i+".label",l.label)+field("URL","profile.links."+i+".url",l.url,{ph:"https://"})+'<button type="button" class="x" data-act="del-link" data-i="'+i+'" aria-label="Remove link">✕</button></div>'});
   h+='<button type="button" class="ghost" data-act="add-link">Add link</button></div>';
  }else if(tab==="xp"){
