@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/cdc/:path*", "destination": "https://api.crypto.com/exchange/v1/:path*" }
+  ]
+}
