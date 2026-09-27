@@ -707,9 +707,7 @@ function flRenderText(){
  var top=FL.routes.slice().sort(function(a,b){return b.n-a.n||b.km-a.km}).slice(0,5);
  var rec=FL.fs.slice().reverse().slice(0,5);
  var row=function(f){return"<tr><td>"+esc(flMonth(f.d))+"</td><td>"+esc(f.f)+" → "+esc(f.t)+"</td><td>"+esc(flAirline(f.a))+" "+esc(f.n)+"</td><td>"+esc(f.ac||"")+"</td><td>"+Math.round(flDist(FL.ap[f.f],FL.ap[f.t])).toLocaleString("en-US")+" km</td></tr>"};
- $("#flLists").innerHTML='<div><h3>Most flown routes</h3><ol class="fl-list">'+top.map(function(r){return'<li><span class="rt">'+esc(r.a)+"<i>↔</i>"+esc(r.b)+'</span><span class="ct">'+r.n+"×</span><span class=\"meta\">"+esc(flPlace(r.a).split(",")[0])+" – "+esc(flPlace(r.b).split(",")[0])+" · "+Math.round(r.km).toLocaleString("en-US")+" km</span></li>"}).join("")+"</ol></div>"+
-  '<div><h3>Latest flights</h3><ol class="fl-list">'+rec.map(function(f){return'<li><span class="rt">'+esc(f.f)+"<i>→</i>"+esc(f.t)+'</span><span class="ct">'+esc(flMonth(f.d))+'</span><span class="meta">'+esc(flAirline(f.a))+" "+esc(f.n)+(f.ac?" · "+esc(f.ac):"")+"</span></li>"}).join("")+"</ol>"+
-  '<details class="fl-all"><summary>All '+S.n+' flights</summary><div class="fl-tbl-wrap"><table class="fl-tbl"><thead><tr><th>Month</th><th>Route</th><th>Flight</th><th>Aircraft</th><th>Distance</th></tr></thead><tbody>'+FL.fs.slice().reverse().map(row).join("")+"</tbody></table></div></details></div>";
+ $("#flLists").innerHTML="";
 }
 function renderFlights(){
  if(!FL.loaded)return;
