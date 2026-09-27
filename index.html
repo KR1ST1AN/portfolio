@@ -50,6 +50,7 @@ main,footer{position:relative;z-index:2;max-width:1400px;margin-inline:auto}
 .hero{min-height:82svh;display:grid;align-content:end;gap:clamp(24px,4vw,48px);padding-block:clamp(120px,18vh,200px) 40px;--wd:150}
 .car-spec{position:absolute;right:0;top:clamp(104px,15vh,150px);margin:0;display:flex;gap:clamp(14px,2vw,28px);animation:fade 1s var(--ease) .9s both}
 .car-spec .g{display:grid;justify-items:center;text-align:center}
+.car-spec.follow{position:fixed;right:auto;z-index:3;pointer-events:none}
 .car-spec svg{width:132px;height:74px;display:block;overflow:visible}
 .car-spec .trk{fill:none;stroke:var(--line2);stroke-width:3;stroke-linecap:round}
 .car-spec .val{fill:none;stroke:url(#spdG);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(232,193,90,.55))}
@@ -764,7 +765,7 @@ function initGL(){
  if(!T.GLTFLoader){carMsg("3D car couldn't load: the 3D loader script didn't load.")}
  else{carMsg("Loading 3D car…");
   new T.GLTFLoader().load("car.glb",function(g){var car=g.scene;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
-    car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;carMsg("")},undefined,function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model file wasn't found")+".")})}
+    car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;gl.carTop=sz.y*s;carMsg("")},undefined,function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model file wasn't found")+".")})}
  function size(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
  size();addEventListener("resize",size);
 }
@@ -772,6 +773,18 @@ var last=performance.now(),lastY=0,vel=0,cx=-99,cy=-99,px=-99,py=-99,cursor=$("#
 var useCursor=!reduce&&matchMedia("(pointer:fine)").matches;
 if(useCursor){cursor.hidden=false;document.addEventListener("pointerover",function(e){cursor.classList.toggle("big",!!(e.target.closest&&e.target.closest("a,button,input,textarea,label,.big-cta")))})}
 addEventListener("pointermove",function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;px=e.clientX;py=e.clientY});
+var specV=null;
+function followSpec(mob){
+ var box=$("#carSpec");if(!box||box.hidden||!gl.carTop)return;
+ if(!specV)specV=new THREE.Vector3();
+ gl.grp.updateMatrixWorld();gl.cam.updateMatrixWorld();
+ specV.set(0,gl.carTop*1.05,0);gl.grp.localToWorld(specV);specV.project(gl.cam);
+ var w=box.offsetWidth,h=box.offsetHeight,g=mob?12:24,sx=(specV.x+1)/2*innerWidth,sy=(1-specV.y)/2*innerHeight;
+ var l=clamp(sx-w/2,g,Math.max(g,innerWidth-w-g)),t=sy-h-(mob?6:14);
+ if(!box.classList.contains("follow"))box.classList.add("follow");
+ box.style.left=l.toFixed(1)+"px";box.style.top=t.toFixed(1)+"px";
+ box.style.visibility=gl.grp.visible&&t+h>0?"visible":"hidden";
+}
 function frame(now){
  var dt=Math.min((now-last)/1000,.05);last=now;
  if(lenis)lenis.raf(now);
@@ -792,7 +805,7 @@ function frame(now){
   gl.cam.position.x+=(mx*.5-gl.cam.position.x)*.04;gl.cam.position.y+=((1.1-clamp(sp,0,4)*.22-my*.25)-gl.cam.position.y)*.06;gl.cam.position.z=6.2-clamp(sp,0,1.5)*1.1;gl.cam.lookAt(0,-.35-clamp(sp,0,4)*.15,-3);
   if(gl.car){var mob=innerWidth<760;gl.yaw+=reduce?0:dt*(.2+clamp(Math.abs(vel),0,4)*.45);gl.carIn+=(1-gl.carIn)*.04;
    gl.grp.rotation.y=gl.yaw+mx*.3;gl.grp.rotation.x=my*.04;gl.grp.scale.setScalar((mob?.5:1)*(.8+.2*gl.carIn));
-   gl.grp.position.x=mob?.3:2.2;gl.grp.position.y+=((mob?1.25:-.8)+sp*1.8-(1-gl.carIn)*.6-gl.grp.position.y)*.08;gl.grp.visible=sp<1.5}
+   gl.grp.position.x=mob?.3:2.2;gl.grp.position.y+=((mob?1.25:-.8)+sp*1.8-(1-gl.carIn)*.6-gl.grp.position.y)*.08;gl.grp.visible=sp<1.5;followSpec(mob)}
   gl.r.render(gl.scene,gl.cam);
  }
  requestAnimationFrame(frame);
