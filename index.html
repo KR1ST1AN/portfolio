@@ -823,7 +823,7 @@ function frame(now){
   gl.cam.position.x+=(mx*.5-gl.cam.position.x)*.04;gl.cam.position.y+=((1.1-clamp(sp,0,4)*.22-my*.25)-gl.cam.position.y)*.06;gl.cam.position.z=6.2-clamp(sp,0,1.5)*1.1;gl.cam.lookAt(0,-.35-clamp(sp,0,4)*.15,-3);
   if(gl.car){var mob=innerWidth<760;gl.yaw+=reduce?0:dt*(.2+clamp(Math.abs(vel),0,4)*.45);gl.carIn+=(1-gl.carIn)*.04;
    gl.grp.rotation.y=gl.yaw+mx*.3;gl.grp.rotation.x=my*.04;gl.grp.scale.setScalar((mob?.5:1)*(.8+.2*gl.carIn));
-   gl.grp.position.x=mob?.3:2.2;gl.grp.position.y+=((mob?1.25:-.8)+sp*1.8-(1-gl.carIn)*.6-gl.grp.position.y)*.08;gl.grp.visible=sp<1.5;followSpec(mob)}
+   gl.grp.position.x=mob?0:2.2;gl.grp.position.y+=((mob?.55:-.8)+sp*1.8-(1-gl.carIn)*.6-gl.grp.position.y)*.08;gl.grp.visible=sp<1.5;followSpec(mob)}
   gl.r.render(gl.scene,gl.cam);
  }
  requestAnimationFrame(frame);
