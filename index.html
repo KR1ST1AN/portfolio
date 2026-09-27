@@ -772,9 +772,9 @@ function initGL(){
  /* stock RS-style lip spoiler along the tailgate edge (model units, rear is -z) */
  function addSpoiler(car,paint){try{
   var M=paint?paint.clone():new T.MeshStandardMaterial({color:0x050505,metalness:.3,roughness:.25});M.side=T.DoubleSide;
-  var cx=.355,W=3.2,N=40,sec=[[-8.34,.045],[-8.81,.115],[-8.81,-.03],[-8.34,0]],pos=[],idx=[];
-  for(var i=0;i<=N;i++){var dx=-W/2+i*W/N,b=4.378-.02*Math.pow(Math.abs(dx),4),t=Math.min(1,(W/2-Math.abs(dx))/.16);
-   sec.forEach(function(q){pos.push(cx+dx,b+q[1]*t,q[0]+(1-t)*(q[0]<-8.5?.0:.12))})}
+  var cx=.355,W=3.4,N=40,sec=[[-8.02,.075],[-8.56,.125],[-8.56,-.02],[-8.02,.045]],pos=[],idx=[];
+  for(var i=0;i<=N;i++){var dx=-W/2+i*W/N,b=4.395-.011*Math.pow(Math.abs(dx),4),t=Math.min(1,(W/2-Math.abs(dx))/.16);
+   sec.forEach(function(q,k){pos.push(cx+dx,b+(k===1?q[1]*t+.045*(1-t):q[1]),q[0])})}
   for(i=0;i<N;i++)for(var j=0;j<4;j++){var a=i*4+j,b2=i*4+(j+1)%4,c=a+4,d=b2+4;idx.push(a,c,b2,b2,c,d)}
   var g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
   var m=new T.Mesh(g,M);m.name="spoiler";car.add(m);
