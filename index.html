@@ -769,13 +769,15 @@ function initGL(){
   scene.environment=pm.fromScene(es,.02).texture;pm.dispose()}catch(e){}
  var key=new T.DirectionalLight(0xffffff,.7);key.position.set(4,6,5);scene.add(key);scene.add(new T.HemisphereLight(0xffffff,0x080705,.15));
  gl={r:r,scene:scene,cam:cam,mat:mat,grp:grp,car:null,yaw:-.75,carIn:0,t:0,sm:0};
- /* rear wing, in the model's own units (rear of the car is -z) */
+ /* stock RS-style lip spoiler along the tailgate edge (model units, rear is -z) */
  function addSpoiler(car,paint){try{
-  var M=paint||new T.MeshStandardMaterial({color:0x050505,metalness:.3,roughness:.25}),sp=new T.Group(),cx=.355,yb=4.3,yt=4.84,zc=-8.3;
-  function box(w,h,d,x,y,z,rx){var m=new T.Mesh(new T.BoxGeometry(w,h,d),M);m.position.set(x,y,z);m.rotation.x=rx||0;sp.add(m);return m}
-  box(3.9,.06,.64,cx,yt,zc,.1);
-  [-1,1].forEach(function(k){box(.07,yt-yb,.32,cx+k*1.2,(yb+yt)/2,zc+.04,-.18);box(.05,.24,.7,cx+k*1.95,yt+.05,zc-.02,.1)});
-  sp.name="spoiler";car.add(sp);
+  var M=paint?paint.clone():new T.MeshStandardMaterial({color:0x050505,metalness:.3,roughness:.25});M.side=T.DoubleSide;
+  var cx=.355,W=3.2,N=40,sec=[[-8.34,.045],[-8.81,.115],[-8.81,-.03],[-8.34,0]],pos=[],idx=[];
+  for(var i=0;i<=N;i++){var dx=-W/2+i*W/N,b=4.378-.02*Math.pow(Math.abs(dx),4),t=Math.min(1,(W/2-Math.abs(dx))/.16);
+   sec.forEach(function(q){pos.push(cx+dx,b+q[1]*t,q[0]+(1-t)*(q[0]<-8.5?.0:.12))})}
+  for(i=0;i<N;i++)for(var j=0;j<4;j++){var a=i*4+j,b2=i*4+(j+1)%4,c=a+4,d=b2+4;idx.push(a,c,b2,b2,c,d)}
+  var g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+  var m=new T.Mesh(g,M);m.name="spoiler";car.add(m);
  }catch(e){}}
  var st=$("#carStatus");function carMsg(t){if(st){st.textContent=t;st.hidden=!t}}
  if(!T.GLTFLoader){carMsg("3D car couldn't load: the 3D loader script didn't load.")}
