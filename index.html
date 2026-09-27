@@ -158,7 +158,7 @@ main,footer{position:relative;z-index:2;max-width:1400px;margin-inline:auto}
 }
 
 /* flights */
-.fl-stats{display:none;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line);margin:0 0 clamp(20px,3vw,32px)}
+.fl-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line);margin:0 0 clamp(20px,3vw,32px)}
 .fl-stat{background:var(--ink);padding:18px 16px 16px 0;display:grid;gap:6px;align-content:start}
 .fl-stat b{font:500 clamp(1.3rem,2.2vw,1.9rem)/1 var(--f-m);white-space:nowrap;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--frost)}
 .fl-stat span{font:500 .66rem var(--f-m);letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
@@ -546,6 +546,8 @@ function renderEditor(){
   h+='<p class="hint">'+(nF?nF+" flights loaded, latest "+esc(flMonth((d.flights[nF-1]||{}).d))+".":"No flights loaded yet.")+' To update, export again from Flighty (Settings → Account Data → Export your flights) and upload the file here. Only the month, route, airline, flight number and aircraft are kept. Booking codes, seats and exact dates are left out.</p>';
   h+='<div class="drop" id="flDrop"><label class="ghost" for="f-flcsv">Choose Flighty export (.csv)</label><input type="file" id="f-flcsv" accept=".csv,text/csv" hidden><span class="hint" id="flUpMsg">Or drop the file here.</span></div>';
   h+='<label class="check" for="f-showfl"><input type="checkbox" id="f-showfl" data-path="settings.showFlights" data-type="bool"'+(d.settings.showFlights!==false?" checked":"")+'><span>Show the flight map on the page.</span></label>';
+  h+='<p class="hint" style="margin-top:8px">Show in the flight section:</p>';
+  [["flEyebrow","Label line (Flight log · number of flights)"],["flTitle","Heading (Miles in the air)"],["flNote","Description text"],["flLabels","Airport codes on the map"],["flStats","Stats row (flights, distance, airports…)"],["flLists","Route lists (most flown, latest, all flights)"]].forEach(function(o){var v=d.settings[o[0]];v=v==null?FL_DEF[o[0]]:v!==false;h+='<label class="check" for="f-'+o[0]+'"><input type="checkbox" id="f-'+o[0]+'" data-path="settings.'+o[0]+'" data-type="bool"'+(v?" checked":"")+'><span>'+o[1]+'</span></label>'});
  }
  $("#edBody").innerHTML=h;
 }
@@ -685,7 +687,7 @@ function flDraw(now){
   if(a.c===top&&!reduce){var ph=(now/1600)%1;c.strokeStyle="rgba(232,193,90,"+(.5*(1-ph))+")";c.lineWidth=1.2;c.beginPath();c.arc(x,y,rad+3+ph*14,0,6.2832);c.stroke()}
   c.fillStyle="#000";c.beginPath();c.arc(x,y,rad+2,0,6.2832);c.fill();c.fillStyle=on?"#FFF4DD":"#E8C15A";c.beginPath();c.arc(x,y,rad,0,6.2832);c.fill()});
  c.font="500 11px 'JetBrains Mono',ui-monospace,monospace";c.textBaseline="middle";var placed=[];
- FL.airports.slice(0,w<700?5:9).forEach(function(a){var x=a.p[0]+8,y=a.p[1]-9,tw=c.measureText(a.c).width;if(x+tw>w-4)x=a.p[0]-8-tw;
+ if(state.settings.flLabels!==false)FL.airports.slice(0,w<700?5:9).forEach(function(a){var x=a.p[0]+8,y=a.p[1]-9,tw=c.measureText(a.c).width;if(x+tw>w-4)x=a.p[0]-8-tw;
   if(placed.some(function(q){return Math.abs(q[0]-x)<tw+6&&Math.abs(q[1]-y)<13}))return;placed.push([x,y]);c.fillStyle="rgba(239,235,226,.78)";c.fillText(a.c,x,y)});
 }
 function flLoop(now){FL.raf=0;flDraw(now);if(FL.visible&&!reduce&&!document.hidden)FL.raf=requestAnimationFrame(flLoop)}
@@ -698,8 +700,13 @@ function flTip(h,mx,my){var t=$("#flTip");if(!h){t.hidden=true;return}
  else{var r=h.r,al=Object.keys(r.al).join(", "),yr=r.first.slice(0,4)===r.last.slice(0,4)?r.first.slice(0,4):r.first.slice(0,4)+"–"+r.last.slice(0,4);
   t.innerHTML="<b>"+esc(r.a)+" ↔ "+esc(r.b)+"</b><span>"+esc(flPlace(r.a).split(",")[0])+" – "+esc(flPlace(r.b).split(",")[0])+"</span><span>"+r.n+(r.n===1?" flight":" flights")+" · "+Math.round(r.km).toLocaleString("en-US")+" km · "+yr+"</span><span>"+esc(al)+"</span>"}
  t.hidden=false;var x=Math.max(90,Math.min(FL.w-90,mx)),y=my<90?my+100:my;t.style.left=x+"px";t.style.top=y+"px"}
+function flOpt(k){var v=state.settings[k];return v==null?FL_DEF[k]:v!==false}
+var FL_DEF={flEyebrow:true,flTitle:true,flNote:true,flLabels:true,flStats:false,flLists:false};
 function flRenderText(){
  var S=FL.stats,show=state.settings.showFlights!==false,sec=$("#flights");sec.hidden=!show;if(!show)return;
+ var hd=sec.querySelector(".sec-head"),vis=function(el,on){if(el)el.style.display=on?"":"none"};
+ vis(hd.querySelector(".eyebrow"),flOpt("flEyebrow"));vis(hd.querySelector(".sec-title"),flOpt("flTitle"));vis(hd.querySelector(".sec-note"),flOpt("flNote"));
+ vis(hd,flOpt("flEyebrow")||flOpt("flTitle")||flOpt("flNote"));vis($("#flStats"),flOpt("flStats"));vis($("#flLists"),flOpt("flLists")||!S.n);
  $("#flMeta").textContent=S.n?"· "+S.n+" flights since "+(FL.fs[0].d||"").slice(0,4):"";
  if(!S.n){$("#flStats").innerHTML="";$("#flLists").innerHTML='<p class="fl-empty">No flights yet. Open Edit → Flights to upload your Flighty export.</p>';return}
  var laps=S.km/40075,L=S.longest;
@@ -707,7 +714,9 @@ function flRenderText(){
  var top=FL.routes.slice().sort(function(a,b){return b.n-a.n||b.km-a.km}).slice(0,5);
  var rec=FL.fs.slice().reverse().slice(0,5);
  var row=function(f){return"<tr><td>"+esc(flMonth(f.d))+"</td><td>"+esc(f.f)+" → "+esc(f.t)+"</td><td>"+esc(flAirline(f.a))+" "+esc(f.n)+"</td><td>"+esc(f.ac||"")+"</td><td>"+Math.round(flDist(FL.ap[f.f],FL.ap[f.t])).toLocaleString("en-US")+" km</td></tr>"};
- $("#flLists").innerHTML="";
+ $("#flLists").innerHTML='<div><h3>Most flown routes</h3><ol class="fl-list">'+top.map(function(r){return'<li><span class="rt">'+esc(r.a)+"<i>↔</i>"+esc(r.b)+'</span><span class="ct">'+r.n+"×</span><span class=\"meta\">"+esc(flPlace(r.a).split(",")[0])+" – "+esc(flPlace(r.b).split(",")[0])+" · "+Math.round(r.km).toLocaleString("en-US")+" km</span></li>"}).join("")+"</ol></div>"+
+  '<div><h3>Latest flights</h3><ol class="fl-list">'+rec.map(function(f){return'<li><span class="rt">'+esc(f.f)+"<i>→</i>"+esc(f.t)+'</span><span class="ct">'+esc(flMonth(f.d))+'</span><span class="meta">'+esc(flAirline(f.a))+" "+esc(f.n)+(f.ac?" · "+esc(f.ac):"")+"</span></li>"}).join("")+"</ol>"+
+  '<details class="fl-all"><summary>All '+S.n+' flights</summary><div class="fl-tbl-wrap"><table class="fl-tbl"><thead><tr><th>Month</th><th>Route</th><th>Flight</th><th>Aircraft</th><th>Distance</th></tr></thead><tbody>'+FL.fs.slice().reverse().map(row).join("")+"</tbody></table></div></details></div>";
 }
 function renderFlights(){
  if(!FL.loaded)return;
