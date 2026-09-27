@@ -769,10 +769,18 @@ function initGL(){
   scene.environment=pm.fromScene(es,.02).texture;pm.dispose()}catch(e){}
  var key=new T.DirectionalLight(0xffffff,.7);key.position.set(4,6,5);scene.add(key);scene.add(new T.HemisphereLight(0xffffff,0x080705,.15));
  gl={r:r,scene:scene,cam:cam,mat:mat,grp:grp,car:null,yaw:-.75,carIn:0,t:0,sm:0};
+ /* rear wing, in the model's own units (rear of the car is -z) */
+ function addSpoiler(car,paint){try{
+  var M=paint||new T.MeshStandardMaterial({color:0x050505,metalness:.3,roughness:.25}),sp=new T.Group(),cx=.355,yb=4.3,yt=4.84,zc=-8.3;
+  function box(w,h,d,x,y,z,rx){var m=new T.Mesh(new T.BoxGeometry(w,h,d),M);m.position.set(x,y,z);m.rotation.x=rx||0;sp.add(m);return m}
+  box(3.9,.06,.64,cx,yt,zc,.1);
+  [-1,1].forEach(function(k){box(.07,yt-yb,.32,cx+k*1.2,(yb+yt)/2,zc+.04,-.18);box(.05,.24,.7,cx+k*1.95,yt+.05,zc-.02,.1)});
+  sp.name="spoiler";car.add(sp);
+ }catch(e){}}
  var st=$("#carStatus");function carMsg(t){if(st){st.textContent=t;st.hidden=!t}}
  if(!T.GLTFLoader){carMsg("3D car couldn't load: the 3D loader script didn't load.")}
  else{carMsg("Loading 3D car…");
-  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
+  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene,paint=null;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){paint=m;m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});addSpoiler(car,paint);var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
     car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;gl.carTop=sz.y*s;carMsg("")},undefined,function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model file wasn't found")+".")})}
  function size(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
  size();addEventListener("resize",size);
