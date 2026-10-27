@@ -11,6 +11,7 @@ html,body{margin:0}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 img{max-width:100%}
 [hidden]{display:none!important}
+
 :root{color-scheme:dark;--ink:#000000;--ink2:#0A0A09;--ink3:#151412;--line:rgba(237,232,220,.10);--line2:rgba(237,232,220,.2);--frost:#EFEBE2;--mist:#9A958A;--dim:#57524A;--ice:#F3DDA0;--au1:#E8C15A;--au2:#A8822A;--up:#5BD69A;--down:#FF6B7A;--f-d:'Anybody',ui-sans-serif,system-ui,sans-serif;--f-b:'Figtree',ui-sans-serif,system-ui,sans-serif;--f-m:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--gut:clamp(16px,4.5vw,64px);--ease:cubic-bezier(.2,.7,.1,1)}
 html,body{overflow-x:clip}
 html{background:var(--ink)}
@@ -295,6 +296,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 </style>
 </head>
 <body>
+
 <div id="shell">
 <canvas id="gl" aria-hidden="true"></canvas><div class="glow" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
 <div class="cursor" id="cursor" hidden=""></div>
@@ -325,7 +327,7 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
  </section>
  <section class="sec" id="gallery" hidden="">
   <div class="sec-head"><p class="eyebrow">Gallery <b id="lgMeta"></b></p><h2 class="sec-title" id="lgTitle">Through the glass</h2></div>
-  <div class="lg" id="lg"><div class="lg-track" id="lgTrack" data-lenis-prevent="" tabindex="0" aria-roledescription="carousel" aria-label="Photo gallery"></div>
+  <div class="lg" id="lg"><div class="lg-track" id="lgTrack" tabindex="0" aria-roledescription="carousel" aria-label="Photo gallery"></div>
    <div class="lg-ctrl glass" id="lgCtrl"><button class="lg-btn" type="button" id="lgPrev" aria-label="Previous photo">‹</button><div class="lg-dots" id="lgDots"></div><span class="lg-count" id="lgCount"></span><button class="lg-btn" type="button" id="lgNext" aria-label="Next photo">›</button></div>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lgRefract" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".012 .018" numOctaves="2" seed="7" result="n"></feTurbulence><feGaussianBlur in="n" stdDeviation="2" result="nb"></feGaussianBlur><feDisplacementMap in="SourceGraphic" in2="nb" scale="28" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter></svg>
@@ -363,19 +365,19 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;paddin
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-label="Edit portfolio" data-lenis-prevent="" aria-hidden="true">
  <div class="ed-head"><h2>Edit page</h2><button class="x" type="button" id="edClose" aria-label="Close editor">✕</button></div>
- <div class="tabs" role="tablist" id="tabs"><button type="button" role="tab" data-tab="profile">Profile</button><button type="button" role="tab" data-tab="xp">Experience</button><button type="button" role="tab" data-tab="hold">Holdings</button><button type="button" role="tab" data-tab="flights">Flights</button><button type="button" role="tab" data-tab="gallery">Gallery</button></div>
+ <div class="tabs" role="tablist" id="tabs"><button type="button" role="tab" data-tab="profile">Profile</button><button type="button" role="tab" data-tab="xp">Experience</button><button type="button" role="tab" data-tab="hold">Holdings</button><button type="button" role="tab" data-tab="flights">Flights</button><button type="button" role="tab" data-tab="gallery">Gallery</button><button type="button" role="tab" data-tab="layout">Layout</button></div>
  <div class="ed-body" id="edBody"></div>
  <div class="ed-foot"><span class="ed-msg" id="edMsg">Changes go live for everyone who opens this page.</span><button class="ghost" type="button" id="edCancel">Cancel</button><button class="primary" type="button" id="edSave">Save &amp; publish</button></div>
 </aside>
 </div>
-<script type="application/json" id="state">{"v":1,"sample":false,"profile":{"name":"Kristian","role":"Monitoimimies","status":"Heit koodii","intro":"Meikäl o piru upee octavia. osaan mä duuniiki tehdä.","about":"Just a pawn, playing along, try'na do what's right 🗣️","email":"kristian@black.com","skills":["Creative person","Just a bit autistic","Driving","Fucking around","Finding out"],"links":[],"cta":"Please don't contact me.","ctaSecret":"But if you do, email me.","carLabel":"Horsepower","carValue":"318","carUnit":"hp","car3Value":"296","galleryTitle":"I’m also a mediocre chef 🧑🏼‍🍳"},"experience":[{"from":"2024","to":"Now","role":"Field Service Technician","company":"City of Helsinki","place":"Helsinki, Finland","summary":"Laiteasentaja Helsingin kaupungilla","fromM":"9"},{"from":"2023","to":"2023","role":"Motor Vehicle Operator","company":"FInnish Defence Forces","place":"On-Site","summary":"Served in the military for a year","fromM":"1","toM":"12"},{"from":"2022","to":"2022","role":"IT Technician","company":"HUS | Infocare","place":"On-site","summary":"I worked at Infocare (now Onitio) under the HUS account in Proactive Device Replacement. My tasks included replacing old computers and peripherals with new ones, using Active Directory, cross-connects, inventory management, and reaching out to customers.","fromM":"2","toM":"12"},{"from":"2021","to":"2021","role":"Electrician","company":"E-Avenue","place":"On-Site","summary":"","fromM":"9","toM":"12"},{"from":"2019","to":"2019","role":"Intern","company":"Prisma Jumbo","place":"On-Site","summary":"Summer Job, stocked shelves, helped customers. Yadi yadi yada","fromM":"7","toM":"8"},{"from":"2018","to":"2018","role":"Intern","company":"Finnair Sky Shop","place":"On-Site","summary":"Stocked shelves for a week","fromM":"2","toM":"2"}],"holdings":[{"sym":"XPL","amount":100000,"cost":null},{"sym":"ETH","amount":0.2,"cost":null},{"sym":"CRO","amount":146535,"cost":null},{"sym":"SUI","amount":85,"cost":null},{"sym":"BTC","amount":0.00036655,"cost":null},{"sym":"RENDER","amount":10.7832,"cost":null},{"sym":"AVAX","amount":1.83,"cost":null},{"sym":"USDT","amount":20846.49,"cost":null}],"flights":[{"d":"2011-07","a":"FIN","n":"61","f":"HEL","t":"HKG","ac":"Airbus A330-300"},{"d":"2011-07","a":"FIN","n":"8862","f":"HKG","t":"HEL","ac":""},{"d":"2011-12","a":"FIN","n":"961","f":"HEL","t":"DXB","ac":"Boeing 757-200"},{"d":"2011-12","a":"UAE","n":"412","f":"DXB","t":"SYD","ac":"Airbus A380-800"},{"d":"2012-01","a":"FIN","n":"8854","f":"ICN","t":"HEL","ac":""},{"d":"2012-01","a":"KAL","n":"122","f":"SYD","t":"ICN","ac":"Boeing 747-400"},{"d":"2018-03","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2018-03","a":"FIN","n":"146","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2018-12","a":"FIN","n":"1337","f":"HEL","t":"LHR","ac":"Airbus A321"},{"d":"2018-12","a":"FIN","n":"1336","f":"LHR","t":"HEL","ac":"Airbus A321"},{"d":"2019-02","a":"FIN","n":"7","f":"HEL","t":"MIA","ac":"Airbus A330-300"},{"d":"2019-02","a":"FIN","n":"8","f":"MIA","t":"HEL","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"11","f":"HEL","t":"SFO","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"12","f":"SFO","t":"HEL","ac":"Airbus A330-300"},{"d":"2022-06","a":"FIN","n":"1301","f":"HEL","t":"AMS","ac":"Airbus A350-900"},{"d":"2022-11","a":"IBE","n":"1653","f":"HEL","t":"BCN","ac":"Airbus A321"},{"d":"2022-11","a":"AAL","n":"839","f":"TPA","t":"DFW","ac":"Boeing 737-800"},{"d":"2022-11","a":"FIN","n":"20","f":"DFW","t":"HEL","ac":"Airbus A350-900"},{"d":"2022-12","a":"FIN","n":"15","f":"HEL","t":"JFK","ac":"Airbus A330-300"},{"d":"2022-12","a":"FIN","n":"16","f":"JFK","t":"HEL","ac":"Airbus A330-300"},{"d":"2023-07","a":"FIN","n":"366","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2024-01","a":"FIN","n":"1739","f":"HEL","t":"LIS","ac":"Airbus A321"},{"d":"2024-01","a":"FIN","n":"1740","f":"LIS","t":"HEL","ac":"Airbus A321"},{"d":"2024-03","a":"FIN","n":"1662","f":"MAD","t":"HEL","ac":"Airbus A321"},{"d":"2024-09","a":"FIN","n":"1141","f":"HEL","t":"WAW","ac":"Airbus A319"},{"d":"2024-09","a":"FIN","n":"1146","f":"WAW","t":"HEL","ac":"Embraer 190"},{"d":"2025-04","a":"CPA","n":"612","f":"CMB","t":"HKG","ac":"Airbus A330-300"},{"d":"2025-04","a":"CPA","n":"162","f":"SYD","t":"HKG","ac":"Boeing 777-300 ER"},{"d":"2025-04","a":"FIN","n":"100","f":"HKG","t":"HEL","ac":"Airbus A350-900"},{"d":"2025-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2025-07","a":"FIN","n":"1401","f":"HEL","t":"MUC","ac":"Airbus A320"},{"d":"2025-08","a":"FIN","n":"1406","f":"MUC","t":"HEL","ac":"Airbus A319"},{"d":"2025-08","a":"FIN","n":"369","f":"HEL","t":"KUO","ac":"ATR 72"},{"d":"2025-10","a":"FIN","n":"1416","f":"FRA","t":"HEL","ac":"Airbus A320"},{"d":"2025-12","a":"FIN","n":"532","f":"RVN","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"551","f":"HEL","t":"RVN","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"572","f":"KTT","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"546","f":"RVN","t":"HEL","ac":"Airbus A320"},{"d":"2026-05","a":"FIN","n":"435","f":"HEL","t":"OUL","ac":"Airbus A321"},{"d":"2026-07","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"142","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-08","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-09","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"}],"settings":{"showAmounts":false,"showFlights":true,"flNote":false,"flTitle":false,"flEyebrow":false,"flLabels":false,"showGallery":true},"lastPrices":{"at":1790544335138,"p":{"XPL":{"price":0.10759,"change":-0.0352},"ETH":{"price":2690.29,"change":0.0027},"CRO":{"price":0.06736,"change":0.0128},"SUI":{"price":1.27667,"change":0.107},"BTC":{"price":84692.02,"change":0.0063},"RENDER":{"price":2.0465,"change":0.0409},"AVAX":{"price":10.984,"change":0.0214},"USDT":{"price":0.99993,"change":0}}},"gallery":[{"src":"gallery/1.jpg","cap":""},{"src":"gallery/2.jpg","cap":""},{"src":"gallery/3.jpg","cap":""},{"src":"gallery/4.jpg","cap":""},{"src":"gallery/5.jpg","cap":""},{"src":"gallery/6.jpg","cap":""}]}</script>
+<script type="application/json" id="state">{"v":1,"sample":false,"profile":{"name":"Kristian","role":"Monitoimimies","status":"Heit koodii","intro":"Meikäl o piru upee octavia. osaan mä duuniiki tehdä.","about":"Just a pawn, playing along, try'na do what's right 🗣️","email":"kristian@black.com","skills":["Creative person","Just a bit autistic","Driving","Fucking around","Finding out"],"links":[],"cta":"Please don't contact me.","ctaSecret":"But if you do, email me.","carLabel":"Horsepower","carValue":"318","carUnit":"hp","car3Value":"296","galleryTitle":"I’m also a mediocre chef 🧑🏼‍🍳"},"experience":[{"from":"2024","to":"Now","role":"Field Service Technician","company":"City of Helsinki","place":"Helsinki, Finland","summary":"Laiteasentaja Helsingin kaupungilla","fromM":"9"},{"from":"2023","to":"2023","role":"Motor Vehicle Operator","company":"FInnish Defence Forces","place":"On-Site","summary":"Served in the military for a year","fromM":"1","toM":"12"},{"from":"2022","to":"2022","role":"IT Technician","company":"HUS | Infocare","place":"On-site","summary":"I worked at Infocare (now Onitio) under the HUS account in Proactive Device Replacement. My tasks included replacing old computers and peripherals with new ones, using Active Directory, cross-connects, inventory management, and reaching out to customers.","fromM":"2","toM":"12"},{"from":"2021","to":"2021","role":"Electrician","company":"E-Avenue","place":"On-Site","summary":"","fromM":"9","toM":"12"},{"from":"2019","to":"2019","role":"Intern","company":"Prisma Jumbo","place":"On-Site","summary":"Summer Job, stocked shelves, helped customers. Yadi yadi yada","fromM":"7","toM":"8"},{"from":"2018","to":"2018","role":"Intern","company":"Finnair Sky Shop","place":"On-Site","summary":"Stocked shelves for a week","fromM":"2","toM":"2"}],"holdings":[{"sym":"XPL","amount":100000,"cost":null},{"sym":"ETH","amount":0.2,"cost":null},{"sym":"CRO","amount":146535,"cost":null},{"sym":"SUI","amount":85,"cost":null},{"sym":"BTC","amount":0.00036655,"cost":null},{"sym":"RENDER","amount":10.7832,"cost":null},{"sym":"AVAX","amount":1.83,"cost":null},{"sym":"USDT","amount":20846.49,"cost":null}],"flights":[{"d":"2011-07","a":"FIN","n":"61","f":"HEL","t":"HKG","ac":"Airbus A330-300"},{"d":"2011-07","a":"FIN","n":"8862","f":"HKG","t":"HEL","ac":""},{"d":"2011-12","a":"FIN","n":"961","f":"HEL","t":"DXB","ac":"Boeing 757-200"},{"d":"2011-12","a":"UAE","n":"412","f":"DXB","t":"SYD","ac":"Airbus A380-800"},{"d":"2012-01","a":"FIN","n":"8854","f":"ICN","t":"HEL","ac":""},{"d":"2012-01","a":"KAL","n":"122","f":"SYD","t":"ICN","ac":"Boeing 747-400"},{"d":"2018-03","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2018-03","a":"FIN","n":"146","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2018-12","a":"FIN","n":"1337","f":"HEL","t":"LHR","ac":"Airbus A321"},{"d":"2018-12","a":"FIN","n":"1336","f":"LHR","t":"HEL","ac":"Airbus A321"},{"d":"2019-02","a":"FIN","n":"7","f":"HEL","t":"MIA","ac":"Airbus A330-300"},{"d":"2019-02","a":"FIN","n":"8","f":"MIA","t":"HEL","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"11","f":"HEL","t":"SFO","ac":"Airbus A330-300"},{"d":"2019-10","a":"FIN","n":"12","f":"SFO","t":"HEL","ac":"Airbus A330-300"},{"d":"2022-06","a":"FIN","n":"1301","f":"HEL","t":"AMS","ac":"Airbus A350-900"},{"d":"2022-11","a":"IBE","n":"1653","f":"HEL","t":"BCN","ac":"Airbus A321"},{"d":"2022-11","a":"AAL","n":"839","f":"TPA","t":"DFW","ac":"Boeing 737-800"},{"d":"2022-11","a":"FIN","n":"20","f":"DFW","t":"HEL","ac":"Airbus A350-900"},{"d":"2022-12","a":"FIN","n":"15","f":"HEL","t":"JFK","ac":"Airbus A330-300"},{"d":"2022-12","a":"FIN","n":"16","f":"JFK","t":"HEL","ac":"Airbus A330-300"},{"d":"2023-07","a":"FIN","n":"366","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2024-01","a":"FIN","n":"1739","f":"HEL","t":"LIS","ac":"Airbus A321"},{"d":"2024-01","a":"FIN","n":"1740","f":"LIS","t":"HEL","ac":"Airbus A321"},{"d":"2024-03","a":"FIN","n":"1662","f":"MAD","t":"HEL","ac":"Airbus A321"},{"d":"2024-09","a":"FIN","n":"1141","f":"HEL","t":"WAW","ac":"Airbus A319"},{"d":"2024-09","a":"FIN","n":"1146","f":"WAW","t":"HEL","ac":"Embraer 190"},{"d":"2025-04","a":"CPA","n":"162","f":"SYD","t":"HKG","ac":"Boeing 777-300 ER"},{"d":"2025-04","a":"FIN","n":"100","f":"HKG","t":"HEL","ac":"Airbus A350-900"},{"d":"2025-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2025-07","a":"FIN","n":"1401","f":"HEL","t":"MUC","ac":"Airbus A320"},{"d":"2025-08","a":"FIN","n":"1406","f":"MUC","t":"HEL","ac":"Airbus A319"},{"d":"2025-08","a":"FIN","n":"369","f":"HEL","t":"KUO","ac":"ATR 72"},{"d":"2025-10","a":"FIN","n":"1416","f":"FRA","t":"HEL","ac":"Airbus A320"},{"d":"2025-12","a":"FIN","n":"532","f":"RVN","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"551","f":"HEL","t":"RVN","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"572","f":"KTT","t":"HEL","ac":"Airbus A321"},{"d":"2025-12","a":"FIN","n":"546","f":"RVN","t":"HEL","ac":"Airbus A320"},{"d":"2026-05","a":"FIN","n":"435","f":"HEL","t":"OUL","ac":"Airbus A321"},{"d":"2026-07","a":"FIN","n":"141","f":"HEL","t":"BKK","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"142","f":"BKK","t":"HEL","ac":"Airbus A350-900"},{"d":"2026-07","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-08","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"},{"d":"2026-09","a":"FIN","n":"370","f":"KUO","t":"HEL","ac":"ATR 72"}],"settings":{"showAmounts":false,"showFlights":true,"flNote":false,"flTitle":false,"flEyebrow":false,"flLabels":false,"showGallery":true,"order":["about","experience","gallery","portfolio","flights"]},"lastPrices":{"at":1793095855598,"p":{"XPL":{"price":0.07074,"change":-0.0325},"ETH":{"price":2298.07,"change":-0.0137},"CRO":{"price":0.05221,"change":-0.0299},"SUI":{"price":0.90126,"change":-0.0172},"BTC":{"price":79460.39,"change":-0.0113},"RENDER":{"price":1.6613,"change":-0.0273},"AVAX":{"price":8.694,"change":-0.0257},"USDT":{"price":0.99862,"change":-0.0003}}},"gallery":[{"src":"gallery/1.jpg","cap":""},{"src":"gallery/2.jpg","cap":""},{"src":"gallery/3.jpg","cap":""},{"src":"gallery/4.jpg","cap":""},{"src":"gallery/5.jpg","cap":""},{"src":"gallery/6.jpg","cap":""}]}</script>
 <script src="vendor/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="vendor/GLTFLoader.js"></script>
 <script id="app">
 (function(){
 "use strict";
-var LIBS=["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js","https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"];
+var LIBS=["vendor/three.min.js","https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js","vendor/GLTFLoader.js"];
 var FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..900&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">';
 var SERVER="Crypto.com", STASH="jani-portfolio-draft";
 var $=function(s){return document.querySelector(s)};
@@ -614,6 +616,11 @@ function renderEditor(){
   h+='<div class="drop" id="lgDrop"><label class="ghost" for="f-lgfiles">Add photos</label><input type="file" id="f-lgfiles" accept="image/*" multiple hidden><span class="hint" id="lgUpMsg">Or drop images here.</span></div>';
   h+='<label class="check" for="f-showlg"><input type="checkbox" id="f-showlg" data-path="settings.showGallery" data-type="bool"'+(d.settings.showGallery!==false?" checked":"")+'><span>Show the gallery on the page.</span></label>';
  }
+ if(tab==="layout"){var O=d.settings.order=secOrder(d.settings.order);
+  h='<p class="hint">Order of the sections between the top of the page and Contact. The menu at the top follows the same order.</p>';
+  O.forEach(function(k,i){h+='<div class="card" style="grid-template-columns:auto 1fr auto;align-items:center;display:grid"><span class="hint" style="font-family:var(--f-m)">'+String(i+1).padStart(2,"0")+'</span><b style="font-weight:500">'+esc(SEC_NAME[k])+'</b><span class="icon-btns"><button type="button" data-act="up-sec" data-i="'+i+'" aria-label="Move '+esc(SEC_NAME[k])+' up"'+(i?"":" disabled")+'>↑</button><button type="button" data-act="down-sec" data-i="'+i+'" aria-label="Move '+esc(SEC_NAME[k])+' down"'+(i<O.length-1?"":" disabled")+'>↓</button></span></div>'});
+  h+='<p class="hint">Gallery and Flight log can also be switched off in their own tabs.</p>';
+ }
  $("#edBody").innerHTML=h;
 }
 function setPath(o,path,v){var k=path.split(".");for(var i=0;i<k.length-1;i++)o=o[k[i]];o[k[k.length-1]]=v}
@@ -648,7 +655,7 @@ function save(){
  try{sessionStorage.setItem(STASH,JSON.stringify(d))}catch(e){}
  var btn=$("#edSave"),msg=$("#edMsg");btn.disabled=true;msg.textContent="Publishing…";
  var doc=buildDoc(d);
- function done(){try{sessionStorage.removeItem(STASH)}catch(e){}state=d;renderProfile();renderXP();renderGallery();renderFlights();unsubs.forEach(function(u){try{u()}catch(x){}});unsubs=[];live={};spark={};rowErr={};liveMsg=null;renderRows();startLive();msg.textContent="Published.";btn.disabled=false;setTimeout(closeEditor,600)}
+ function done(){try{sessionStorage.removeItem(STASH)}catch(e){}state=d;applyOrder();renderProfile();renderXP();renderGallery();renderFlights();unsubs.forEach(function(u){try{u()}catch(x){}});unsubs=[];live={};spark={};rowErr={};liveMsg=null;renderRows();startLive();msg.textContent="Published.";btn.disabled=false;setTimeout(closeEditor,600)}
  ART.publish({"index.html":{content:doc,contentType:"text/html"}}).then(done,function(e){
   if(e&&e.code==="capability_disabled")return ART.publish(doc).then(function(){try{sessionStorage.removeItem(STASH)}catch(x){}msg.textContent="Published. Reloading the page…"});
   throw e}).catch(function(e){
@@ -686,6 +693,7 @@ $("#edBody").addEventListener("click",function(e){var b=e.target.closest("button
  else if(a==="add-link")draft.profile.links.push({label:"",url:""});
  else if(a==="del-link")draft.profile.links.splice(i,1);
  else if(a==="del-g")draft.gallery.splice(i,1);
+ else if(a==="up-sec"||a==="down-sec"){var O=draft.settings.order=secOrder(draft.settings.order),j=a==="up-sec"?i-1:i+1;if(j>=0&&j<O.length){var t=O[i];O[i]=O[j];O[j]=t}}
  else if(a==="up-g"&&i>0)draft.gallery.splice(i-1,0,draft.gallery.splice(i,1)[0]);
  else if(a==="down-g"&&i<draft.gallery.length-1)draft.gallery.splice(i+1,0,draft.gallery.splice(i,1)[0]);
  renderEditor();});
@@ -840,6 +848,54 @@ function initGL(){
   scene.environment=pm.fromScene(es,.02).texture;pm.dispose()}catch(e){}
  var key=new T.DirectionalLight(0xffffff,.7);key.position.set(4,6,5);scene.add(key);scene.add(new T.HemisphereLight(0xffffff,0x080705,.15));
  gl={r:r,scene:scene,cam:cam,mat:mat,grp:grp,car:null,yaw:-.75,carIn:0,t:0,sm:0};
+
+ /* Octavia upgrades shared with the car app: flaking paint on the driver-side front fender (clean hood),
+    and silver 12-spoke alloys replacing the 5-spoke rims */
+ function octaUpgrade(car,paint,Th){try{
+  var CHIP_HEAD='varying vec3 vMP;varying vec3 vMN;\nfloat chH(vec2 p){vec3 p3=fract(vec3(p.xyx)*.1031);p3+=dot(p3,p3.yzx+33.33);return fract((p3.x+p3.y)*p3.z);}\nfloat chN(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(chH(i),chH(i+vec2(1.,0.)),f.x),mix(chH(i+vec2(0.,1.)),chH(i+vec2(1.,1.)),f.x),f.y);}\nfloat chF(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*chN(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return s;}\nfloat chQ(float x){return x*x;}\nvec2 chO(vec2 c){return vec2(chH(c),chH(c+vec2(17.3,5.1)))*.85;}\n/* voronoi: x = distance to the nearest cell border, y = random value of the cell */\nvec2 chV(vec2 p){vec2 n=floor(p),f=fract(p),mg=vec2(0.),mr=vec2(0.);float md=8.;\n for(int j=-1;j<=1;j++)for(int i=-1;i<=1;i++){vec2 g=vec2(float(i),float(j)),r=g+chO(n+g)-f;float d=dot(r,r);if(d<md){md=d;mr=r;mg=g;}}\n md=8.;\n for(int j=-2;j<=2;j++)for(int i=-2;i<=2;i++){vec2 g=mg+vec2(float(i),float(j)),r=g+chO(n+g)-f,dr=r-mr;if(dot(dr,dr)>1e-5)md=min(md,dot(.5*(mr+r),normalize(dr)));}\n return vec2(md,chH(n+mg+vec2(3.7,11.9)));}\nvec2 chJ(vec2 p,float k){return p+(vec2(chN(p*2.5+vec2(k,0.)),chN(p*2.5+vec2(0.,k+4.)))-.5)*.35;}\nvec2 chJ2(vec2 p,float k,float a,float f){return p+(vec2(chN(p*f+vec2(k,0.)),chN(p*f+vec2(0.,k+4.)))-.5)*a;}',CHIP_APPLY='{float cx=vMP.x,chh=-vMP.y,dd=length(vec2(cx+3.536,chh-1.861));\n bool bump=cx<-4.72&&chh<2.86,front=cx<-5.0&&chh>3.2;\n bool ok=front?(vMN.z<-.2&&vMP.z<-1.4):(vMN.z<-.3&&vMP.z<-2.0);\n if((cx>-5.15||(cx>-6.3&&chh>3.2))&&cx<-2.04&&chh>1.6&&chh<4.3&&!bump&&ok&&dd>1.24){\n  vec2 q=vec2(cx-(vMP.z+3.0)*.8,chh);\n  float rear=smoothstep(-3.0,-2.3,cx)*smoothstep(3.3,3.8,chh);\n  float den=.15+.05*smoothstep(2.2,3.7,chh)+.04*smoothstep(-4.6,-5.6,cx);\n  den*=(1.-.25*rear)*(.8+.4*chF(q*1.3+vec2(4.,0.)));\n  vec2 pA=q*10.,pB=q*21.+vec2(3.1,0.);\n  #if __VERSION__>=300||defined(GL_OES_standard_derivatives)\n  float fw=max(fwidth(pB.x),fwidth(pB.y));\n  #else\n  float fw=.6;\n  #endif\n  /* fw = screen pixel size in small-flake cells; each layer only averages out once ITS cells shrink to about a pixel,\n     so on a phone the big patches stay crisp and the black paint between them stays black */\n  float fA=fw*10./21.,fC=fw*4.2/21.;\n  vec2 vA=chV(chJ(pA,1.)),vB=chV(chJ(pB,7.));\n  float wA=.02+fA*.5,wB=.025+fw*.5;\n  float sB=step(vB.y,den*.75)*smoothstep(.085-wB,.085+wB,vB.x);sB=mix(sB,den*.4,smoothstep(.6,1.4,fw));\n  float sA=step(vA.y,(den-.08)*.75)*smoothstep(.08-wA,.08+wA,vA.x);sA=mix(sA,max(den-.08,0.)*.45,smoothstep(.6,1.4,fA));\n  float fl=max(sA,sB);\n  /* bigger patches: large jagged cells that have lost their paint, still showing the fine crack network and a few paint islands */\n  vec2 vC=chV(chJ2(chJ2(q*4.2+vec2(1.3,.6),3.,.45,2.),11.,.14,7.));float wC=.008+fC*.5;\n  float big=step(vC.y,den*.85)*smoothstep(.045-wC,.06+wC,vC.x);\n  float fine=1.-smoothstep(.3,.8,fw);\n  float isl=step(.86,vB.y)*smoothstep(.085-wB,.085+wB,vB.x)*fine;\n  big*=(1.-isl)*(1.-.55*(1.-smoothstep(0.,.022+fw*.5,vB.x))*fine);big=mix(big,den*.7,smoothstep(.6,1.4,fC));fl=max(fl,big);\n  float cr=(1.-smoothstep(0.,.035+fw*.5,vB.x))*clamp(smoothstep(.12,.35,den)+rear,0.,1.)*.8*(1.-fl)*fine;\n  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.055,.055,.06),cr);roughnessFactor=mix(roughnessFactor,.45,cr);\n  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.62,.62,.6),fl);roughnessFactor=mix(roughnessFactor,.62,fl);metalnessFactor=mix(metalnessFactor,0.,fl);}}';
+function chipPaint(mat){mat.extensions={derivatives:true};mat.onBeforeCompile=function(sh){
+  sh.vertexShader=sh.vertexShader.replace("#include <common>","#include <common>\nvarying vec3 vMP;varying vec3 vMN;").replace("#include <begin_vertex>","#include <begin_vertex>\nvMP=position;vMN=normal;");
+  sh.fragmentShader=sh.fragmentShader.replace("#include <common>","#include <common>\n"+CHIP_HEAD).replace("#include <metalnessmap_fragment>","#include <metalnessmap_fragment>\n"+CHIP_APPLY)};
+  mat.needsUpdate=true}
+  function buildRims(car){
+  var rims=[];car.traverse(function(o){if(o.isMesh&&o.material&&o.material.name==="silver0")rims.push(o)});
+  var silver=new Th.MeshStandardMaterial({color:0xc9cdd3,metalness:.92,roughness:.26,envMapIntensity:1.2});
+  var dark=new Th.MeshStandardMaterial({color:0x3a3d42,metalness:.8,roughness:.45,side:Th.DoubleSide});
+  var disc=new Th.MeshStandardMaterial({color:0x6c6f74,metalness:.85,roughness:.35});
+  var nut=new Th.MeshStandardMaterial({color:0xe2e4e8,metalness:1,roughness:.2});
+  var r0=.21,r1=.785,sh=new Th.Shape();sh.moveTo(-.031,r0);sh.lineTo(.031,r0);sh.lineTo(.02,r1);sh.lineTo(-.02,r1);sh.closePath();
+  var spokeG=new Th.ExtrudeGeometry(sh,{depth:.045,bevelEnabled:true,bevelThickness:.01,bevelSize:.006,bevelSegments:2,steps:1});
+  rims.forEach(function(o){
+    o.geometry.computeBoundingBox();var b=o.geometry.boundingBox,c=b.getCenter(new Th.Vector3()),R=(b.max.x-b.min.x)/2;
+    var left=c.z<-.35,G=new Th.Group();G.position.set(c.x,c.y,left?b.min.z+.02:b.max.z-.02);if(left)G.rotation.y=Math.PI;
+    var k=R/.825;G.scale.setScalar(k);                       /* local +z points out of the wheel */
+    function cylZ(r,h,m,z,open){var g=new Th.Mesh(new Th.CylinderGeometry(r,r,h,48,1,!!open),m);g.rotation.x=Math.PI/2;g.position.z=z;G.add(g);return g}
+    var lip=new Th.Mesh(new Th.TorusGeometry(.795,.032,12,72),silver);lip.position.z=-.04;G.add(lip);
+    cylZ(.78,.56,dark,-.33,true);                             /* barrel */
+    cylZ(.62,.04,disc,-.46);                                  /* brake disc behind the spokes */
+    for(var i=0;i<12;i++){var P=new Th.Group();P.rotation.z=i*Math.PI*2/12;
+      var sp=new Th.Mesh(spokeG,silver);sp.rotation.x=.16;sp.position.z=-.19;P.add(sp);G.add(P)}
+    cylZ(.235,.08,silver,-.17);                               /* hub */
+    cylZ(.09,.03,silver,-.12);                                /* centre cap */
+    for(i=0;i<5;i++){var a=i*Math.PI*2/5+Math.PI/5,n=cylZ(.022,.05,nut,-.115);n.position.x=Math.cos(a)*.155;n.position.y=Math.sin(a)*.155}
+    o.parent.add(G);o.visible=false});
+}
+  if(paint){var hoodN=car.getObjectByName("hood"),clean=paint.clone();
+   if(hoodN)hoodN.traverse(function(o){if(o.isMesh&&o.material===paint)o.material=clean});chipPaint(paint)}
+  buildRims(car);
+ }catch(e){}}
+ /* worn front-left fender: paint peeled to primer, bare metal and surface rust (model units: front +z, driver side +x) */
+ var PEEL={uRootInv:{value:new T.Matrix4()}};
+ function addPeel(m){if(!m||m.userData.peel)return;m.userData.peel=1;
+  m.onBeforeCompile=function(sh){sh.uniforms.uRootInv=PEEL.uRootInv;
+   sh.vertexShader="uniform mat4 uRootInv;\nvarying vec3 vRootPos;\n"+sh.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nvRootPos=(uRootInv*modelMatrix*vec4(transformed,1.0)).xyz;");
+   sh.fragmentShader="varying vec3 vRootPos;\nfloat ph(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat pn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(ph(i),ph(i+vec2(1.,0.)),f.x),mix(ph(i+vec2(0.,1.)),ph(i+1.),f.x),f.y);}\nfloat pf(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*pn(p);p*=2.03;a*=.5;}return s;}\n"+sh.fragmentShader
+    .replace("#include <clipping_planes_fragment>","#include <clipping_planes_fragment>\n vec2 pq=vRootPos.zy;float pSide=smoothstep(2.45,2.75,vRootPos.x)*step(2.1,vRootPos.z);\n float pN=pf(pq*1.8),pN2=pf(pq*5.+7.3);\n float pD=length((pq-vec2(3.75,2.95))/vec2(1.75,.95))+(pN-.5)*.9+(pN2-.5)*.18;\n float pChip=step(.74,pf(pq*11.+2.))*step(pD,1.45);\n float pPeel=pSide*max(1.-smoothstep(.93,.97,pD),pChip);\n float pEdge=pSide*(smoothstep(.84,.95,pD)-smoothstep(.97,1.06,pD));\n float pBare=pSide*(1.-smoothstep(.5,.6,pD+(pf(pq*3.1+5.)-.5)*.5));\n float pRust=pBare*smoothstep(.45,.7,pf(pq*7.+11.));")
+    .replace("#include <color_fragment>","#include <color_fragment>\n vec3 pPrimer=vec3(.13,.125,.118)*(.85+.3*pN2);vec3 pMetal=vec3(.45,.45,.47)*(.8+.4*pn(pq*40.));vec3 pRustC=mix(vec3(.09,.035,.012),vec3(.2,.075,.025),pn(pq*25.));\n vec3 pUnder=mix(mix(pPrimer,pMetal,pBare),pRustC,pRust);\n diffuseColor.rgb=mix(diffuseColor.rgb,pUnder,pPeel)+pEdge*(1.-pPeel)*vec3(.035);")
+    .replace("#include <roughnessmap_fragment>","#include <roughnessmap_fragment>\n roughnessFactor=mix(roughnessFactor,mix(mix(.85,.4,pBare),.95,pRust),pPeel);")
+    .replace("#include <metalnessmap_fragment>","#include <metalnessmap_fragment>\n metalnessFactor=mix(metalnessFactor,mix(0.,.85,pBare*(1.-pRust)),pPeel);")
+    .replace("#include <lights_physical_fragment>","#include <lights_physical_fragment>\n#ifdef CLEARCOAT\n material.clearcoat*=1.-pPeel;\n#endif");
+  };m.needsUpdate=true}
  /* stock RS-style lip spoiler along the tailgate edge (model units, rear is -z) */
  function addSpoiler(car,paint){try{
   var M=paint?paint.clone():new T.MeshStandardMaterial({color:0x050505,metalness:.3,roughness:.25});M.side=T.DoubleSide;
@@ -853,8 +909,9 @@ function initGL(){
  var st=$("#carStatus");function carMsg(t){if(st){st.textContent=t;st.hidden=!t}}
  if(!T.GLTFLoader){carMsg("3D car couldn't load: the 3D loader script didn't load.")}
  else{carMsg("Loading 3D car…");
-  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene,paint=null;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){paint=m;m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});addSpoiler(car,paint);var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
-    car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;gl.carTop=sz.y*s;carMsg("")},undefined,function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model file wasn't found")+".")})}
+  new T.GLTFLoader().load("car.glb",function(g){var car=g.scene,paint=null;car.traverse(function(o){var m=o.material;if(m&&m.name==="car_paint"){paint=m;addPeel(m);m.color.setRGB(.004,.004,.005);m.metalness=.25;m.roughness=.22;m.envMapIntensity=.8}if(m&&m.name==="silver0"){m.color.setRGB(.008,.008,.009);m.metalness=.5;m.roughness=.25;m.envMapIntensity=1;if("clearcoat" in m){m.clearcoat=1;m.clearcoatRoughness=.08}}});gl.peelRoot=car;gl.peelU=PEEL.uRootInv;addSpoiler(car,paint);octaUpgrade(car,paint,T);var b=new T.Box3().setFromObject(car),sz=b.getSize(new T.Vector3()),c=b.getCenter(new T.Vector3()),s=3.6/Math.max(sz.x,sz.z);
+    car.position.sub(c);var hold=new T.Group();hold.add(car);hold.scale.setScalar(s);hold.position.y=sz.y*s/2;grp.add(hold);grp.visible=true;gl.car=hold;gl.carTop=sz.y*s;carMsg("")},undefined,
+   function(e){carMsg("3D car couldn't load: "+((e&&e.message)||"the model couldn't be read")+".")})}
  function size(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
  size();addEventListener("resize",size);
 }
@@ -910,6 +967,7 @@ function frame(now){
   if(gl.car){var mob=innerWidth<760;gl.yaw+=reduce?0:dt*(.2+clamp(Math.abs(vel),0,4)*.45);gl.carIn+=(1-gl.carIn)*.04;
    gl.grp.rotation.y=gl.yaw+mx*.3;gl.grp.rotation.x=my*.04;gl.grp.scale.setScalar((mob?.75:1)*(.8+.2*gl.carIn));
    gl.grp.position.x=mob?0:2.2;gl.grp.position.y+=((mob?.55:-.8)+sp*1.8-(1-gl.carIn)*.6-gl.grp.position.y)*.08;gl.grp.visible=sp<1.5;followSpec(mob)}
+  if(gl.peelRoot){gl.scene.updateMatrixWorld();gl.peelU.value.copy(gl.peelRoot.matrixWorld).invert()}
   gl.r.render(gl.scene,gl.cam);
  }
  requestAnimationFrame(frame);
@@ -938,7 +996,21 @@ function lgPar(){if(reduce)return;var sec=$("#gallery");if(!sec||sec.hidden)retu
  for(var k=0;k<sl.length;k++){var r=sl[k].getBoundingClientRect(),nx=Math.max(-1.2,Math.min(1.2,((r.left+r.width/2)-cx)/r.width)),im=sl[k].firstElementChild;if(!im)continue;
   im.style.setProperty("--px",(-nx*r.width*.13).toFixed(1)+"px");im.style.setProperty("--py",(-ny*r.height*.13).toFixed(1)+"px")}}
 var lgPR=0;function lgParQ(){if(lgPR)return;lgPR=requestAnimationFrame(function(){lgPR=0;lgPar()})}
+function lgMax(tr){return Math.max(0,tr.scrollWidth-tr.clientWidth)}
+function lgRubber(o){var a=Math.abs(o);return (o<0?1:-1)*Math.min(90,a*.45/(1+a/400))}
+function lgSetRub(tr,o){LG.rub=o?lgRubber(o):0;tr.style.transform=LG.rub?"translate3d("+LG.rub.toFixed(1)+"px,0,0)":""}
+function lgRelease(tr){var from=LG.rub;LG.rub=0;tr.style.transform="";if(!from||reduce||!tr.animate)return;
+ tr.animate([{transform:"translate3d("+from+"px,0,0)"},{transform:"translate3d("+(-from*.18).toFixed(1)+"px,0,0)",offset:.55},{transform:"translate3d("+(from*.05).toFixed(1)+"px,0,0)",offset:.8},{transform:"translate3d(0,0,0)"}],{duration:620,easing:"cubic-bezier(.2,.7,.1,1)"})}
+function lgBounce(tr,dir){var now=Date.now();if(reduce||!tr.animate||now-(LG.bt||0)<700)return;LG.bt=now;var d=-dir*42;
+ tr.animate([{transform:"translate3d(0,0,0)"},{transform:"translate3d("+d+"px,0,0)",offset:.28},{transform:"translate3d("+(-d*.2).toFixed(1)+"px,0,0)",offset:.62},{transform:"translate3d("+(d*.06).toFixed(1)+"px,0,0)",offset:.84},{transform:"translate3d(0,0,0)"}],{duration:680,easing:"ease-out"})}
 function lgInit(){LG.init=true;var tr=$("#lgTrack"),raf=0;
+ tr.addEventListener("wheel",function(e){if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.stopPropagation();var m=lgMax(tr);
+  if(e.deltaX<-2&&tr.scrollLeft<=1)lgBounce(tr,-1);else if(e.deltaX>2&&tr.scrollLeft>=m-1)lgBounce(tr,1)},{passive:true});
+ var tch=null,ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ if(!ios){tr.addEventListener("touchstart",function(e){var t=e.touches[0];tch={x:t.clientX,y:t.clientY,l:tr.scrollLeft,h:null}},{passive:true});
+  tr.addEventListener("touchmove",function(e){if(!tch)return;var t=e.touches[0],dx=t.clientX-tch.x,dy=t.clientY-tch.y;if(tch.h===null&&(Math.abs(dx)>6||Math.abs(dy)>6))tch.h=Math.abs(dx)>Math.abs(dy);if(!tch.h)return;
+   var m=lgMax(tr),want=tch.l-dx;if(want<0&&tr.scrollLeft<=1)lgSetRub(tr,want);else if(want>m&&tr.scrollLeft>=m-1)lgSetRub(tr,want-m);else if(LG.rub)lgSetRub(tr,0)},{passive:true});
+  tr.addEventListener("touchend",function(){tch=null;if(LG.rub)lgRelease(tr)});tr.addEventListener("touchcancel",function(){tch=null;if(LG.rub)lgRelease(tr)})}
  tr.addEventListener("scroll",lgParQ,{passive:true});addEventListener("scroll",lgParQ,{passive:true});addEventListener("resize",lgParQ);
  tr.addEventListener("scroll",function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;var k=lgNearest();if(k!==LG.i){LG.i=k;lgMark()}})},{passive:true});
  $("#lgPrev").addEventListener("click",function(){LG.idle=Date.now();lgGo(LG.i-1)});
@@ -946,8 +1018,8 @@ function lgInit(){LG.init=true;var tr=$("#lgTrack"),raf=0;
  $("#lgDots").addEventListener("click",function(e){var b=e.target.closest("button[data-k]");if(b){LG.idle=Date.now();lgGo(+b.getAttribute("data-k"))}});
  tr.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){e.preventDefault();LG.idle=Date.now();lgGo(LG.i+1)}else if(e.key==="ArrowLeft"){e.preventDefault();LG.idle=Date.now();lgGo(LG.i-1)}});
  var dn=null;tr.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse"||e.button!==0)return;dn={x:e.clientX,l:tr.scrollLeft,m:false};LG.idle=Date.now()});
- addEventListener("pointermove",function(e){if(!dn)return;var dx=e.clientX-dn.x;if(!dn.m&&Math.abs(dx)>4){dn.m=true;tr.classList.add("drag")}if(dn.m)tr.scrollLeft=dn.l-dx});
- addEventListener("pointerup",function(){if(!dn)return;var moved=dn.m;dn=null;tr.classList.remove("drag");if(moved)lgGo(lgNearest())});
+ addEventListener("pointermove",function(e){if(!dn)return;var dx=e.clientX-dn.x;if(!dn.m&&Math.abs(dx)>4){dn.m=true;tr.classList.add("drag")}if(dn.m){var m=lgMax(tr),want=dn.l-dx;if(want<0){tr.scrollLeft=0;lgSetRub(tr,want)}else if(want>m){tr.scrollLeft=m;lgSetRub(tr,want-m)}else{tr.scrollLeft=want;if(LG.rub)lgSetRub(tr,0)}}});
+ addEventListener("pointerup",function(){if(!dn)return;var moved=dn.m;dn=null;tr.classList.remove("drag");if(LG.rub)lgRelease(tr);if(moved)lgGo(lgNearest())});
  tr.addEventListener("touchstart",function(){LG.idle=Date.now()},{passive:true});tr.addEventListener("mouseenter",function(){LG.hover=true});tr.addEventListener("mouseleave",function(){LG.hover=false});
  if("IntersectionObserver" in window)new IntersectionObserver(function(es){LG.inView=es[0].isIntersecting},{threshold:.4}).observe($("#lg"));
  addEventListener("resize",function(){lgGo(LG.i,true)});
@@ -955,8 +1027,16 @@ function lgInit(){LG.init=true;var tr=$("#lgTrack"),raf=0;
 }
 function lgResize(file){return new Promise(function(res,rej){var fr=new FileReader();fr.onerror=function(){rej(new Error("Couldn't read "+file.name))};fr.onload=function(){var im=new Image();im.onload=function(){var M=1600,w=im.naturalWidth,h=im.naturalHeight,k=Math.min(1,M/Math.max(w,h)),c=document.createElement("canvas");c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.82))};im.onerror=function(){rej(new Error(file.name+" isn't an image this browser can open"))};im.src=fr.result};fr.readAsDataURL(file)})}
 
+/* ---------- section order ---------- */
+var SEC_DEF=["about","gallery","experience","portfolio","flights"],SEC_NAME={about:"About",gallery:"Gallery",experience:"Experience",portfolio:"Crypto portfolio",flights:"Flight log"};
+function secOrder(o){var a=(o||[]).filter(function(k,i,arr){return SEC_DEF.indexOf(k)>=0&&arr.indexOf(k)===i});SEC_DEF.forEach(function(k){if(a.indexOf(k)<0)a.push(k)});return a}
+function applyOrder(){var ord=secOrder(state.settings.order),main=$("main"),contact=$("#contact");if(!main||!contact)return;
+ ord.forEach(function(k){var el=document.getElementById(k);if(el)main.insertBefore(el,contact)});
+ var ul=document.querySelector(".links"),ca=ul&&ul.querySelector('a[data-go="contact"]');if(!ca)return;var last=ca.parentElement;
+ ord.forEach(function(k){var a=ul.querySelector('a[data-go="'+k+'"]');if(a)ul.insertBefore(a.parentElement,last)})}
+
 /* ---------- boot ---------- */
-renderProfile();renderXP();renderGallery();renderRows();loadFlights();
+applyOrder();renderProfile();renderXP();renderGallery();renderRows();loadFlights();
 initGL();startLive();
 requestAnimationFrame(frame);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitName);
